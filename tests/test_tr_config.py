@@ -1,28 +1,20 @@
-import hashlib
-import os
 import unittest
 from testing_common import tile_rando, original_rom_path
 
 from tile_rando import tr_config
 
+
 class TestTRConfig(unittest.TestCase):
     def test_init(self):
         test_config = tr_config.TRConfig()
         self.assertTrue(isinstance(test_config, tr_config.TRConfig), msg="TRConfig did not initialize properly!")
-        self.assertEqual("", test_config._original_rom_path, "TRConfig _original_rom_path did not initialize properly!")
-        self.assertEqual("", test_config._modified_rom_path, "TRConfig _modified_rom_path did not initialize properly!")
+        self.assertEqual("", test_config.original_rom_path, "TRConfig _original_rom_path did not initialize properly!")
+        self.assertEqual("", test_config.modified_rom_path, "TRConfig _modified_rom_path did not initialize properly!")
         self.assertIsNone(test_config._seed, msg="TRConfig _seed did not initialize properly!")
 
-    def test_original_rom_path(self):
-        original_rom_md5 = b'\x21\xf3\xe9\x8d\xf4\x78\x0e\xe1\xc6\x67\xb8\x4e\x57\xd8\x86\x75'
-
+    def test_seed(self):
         test_config = tr_config.TRConfig()
-        test_config.original_rom_path = original_rom_path
-        self.assertEqual(original_rom_path,
-                         test_config.original_rom_path,
-                         "TRConfig original_rom_path was not set correctly!")
-        bad_rom_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "fixtures", "non_existent_file.sfc")
-        with self.assertRaises(OSError):
-            test_config.original_rom_path = bad_rom_path
-        with self.assertRaises(OSError):
-            test_config.original_rom_path = 6
+        test_config.seed = "12345"
+        self.assertEqual("12345", test_config.seed, "TRConfig seed set incorrectly!")
+        test_config.seed = 4.5
+        self.assertEqual("4.5", test_config.seed, "TRConfig seed set incorrectly!")
