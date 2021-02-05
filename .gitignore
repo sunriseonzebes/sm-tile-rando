@@ -131,3 +131,6 @@ dmypy.json
 # ROMs
 *.sfc
 *.smc
+
+# PyCharm
+.idea
