@@ -2,8 +2,6 @@ import os
 
 class TRConfig:
     def __init__(self):
-        self.original_rom_path = ""
-        self.modified_rom_path = ""
         self._seed = None
 
     @property

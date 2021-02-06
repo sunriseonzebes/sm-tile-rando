@@ -8,8 +8,6 @@ class TestTRConfig(unittest.TestCase):
     def test_init(self):
         test_config = tr_config.TRConfig()
         self.assertTrue(isinstance(test_config, tr_config.TRConfig), msg="TRConfig did not initialize properly!")
-        self.assertEqual("", test_config.original_rom_path, "TRConfig _original_rom_path did not initialize properly!")
-        self.assertEqual("", test_config.modified_rom_path, "TRConfig _modified_rom_path did not initialize properly!")
         self.assertIsNone(test_config._seed, msg="TRConfig _seed did not initialize properly!")
 
     def test_seed(self):
