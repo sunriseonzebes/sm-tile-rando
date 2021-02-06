@@ -25,7 +25,12 @@ class TRProject:
                             type=str,
                             required=True,
                             help="Path to write modified ROM to.")
+        parser.add_argument('--seed', metavar="<randomizer_seed>",
+                            type=str,
+                            help="Seed to use for the tile randomizer. If not specified, a random seed is chosen.")
         args = parser.parse_args(new_args)
 
         self.original_rom_path = args.i
         self.modified_rom_path = args.o
+        if args.seed is not None:
+            self.config.seed = args.seed
