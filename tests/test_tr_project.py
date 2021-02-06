@@ -2,7 +2,7 @@ import os
 import unittest
 from testing_common import tile_rando, original_rom_path, load_test_data_dir
 
-from tile_rando import tr_project
+from tile_rando import tr_project, tr_config
 
 
 class TestTRProject(unittest.TestCase):
@@ -11,6 +11,8 @@ class TestTRProject(unittest.TestCase):
         self.assertTrue(isinstance(test_project, tr_project.TRProject))
         self.assertEqual("", test_project.original_rom_path, "TRProject _original_rom_path did not initialize properly!")
         self.assertEqual("", test_project.modified_rom_path, "TRProject _modified_rom_path did not initialize properly!")
+        self.assertTrue(isinstance(test_project.config, tr_config.TRConfig),
+                        msg="TRProject config did not initialize properly!")
 
     def test_parse_args(self):
         test_project = tr_project.TRProject()

@@ -1,11 +1,13 @@
 import argparse
 import sys
+from .tr_config import TRConfig
 
 
 class TRProject:
     def __init__(self):
         self.original_rom_path = ""
         self.modified_rom_path = ""
+        self.config = TRConfig()
 
     def parse_args(self, new_args=None):
         if new_args is None:
