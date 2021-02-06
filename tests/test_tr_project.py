@@ -3,7 +3,7 @@ import unittest
 from testing_common import tile_rando, original_rom_path, load_test_data_dir
 
 from tile_rando import tr_project, tr_config
-
+from tekton import tekton_project
 
 class TestTRProject(unittest.TestCase):
     def test_init(self):
@@ -13,6 +13,8 @@ class TestTRProject(unittest.TestCase):
         self.assertEqual("", test_project.modified_rom_path, "TRProject _modified_rom_path did not initialize properly!")
         self.assertTrue(isinstance(test_project.config, tr_config.TRConfig),
                         msg="TRProject config did not initialize properly!")
+        self.assertTrue(isinstance(test_project._tekton_project, tekton_project.TektonProject),
+                        msg="TRProject _tekton_project did not initialize properly!")
 
     def test_parse_args(self):
         test_project = tr_project.TRProject()
