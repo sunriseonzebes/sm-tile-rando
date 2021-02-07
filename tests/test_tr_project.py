@@ -52,7 +52,7 @@ class TestTRProject(unittest.TestCase):
         test_rom_path = os.path.join('fixtures', 'test_output_rom.sfc')
 
         test_project.modified_rom_path = test_rom_path
-        test_project.write_bytes_to_output_file(expected_result)
+        test_project._write_bytes_to_output_file(expected_result)
 
         with open(test_rom_path, 'rb') as f:
             actual_result = f.read()
@@ -60,3 +60,15 @@ class TestTRProject(unittest.TestCase):
                          actual_result,
                          "TRProject.write_bytes_to_output_file did not write correct byte sequence!")
 
+    def test_init_tekton_project(self):
+        test_project = tr_project.TRProject()
+        test_project.original_rom_path = original_rom_path
+
+        test_rom_path = os.path.join('fixtures', 'test_output_rom.sfc')
+        test_project.modified_rom_path = test_rom_path
+
+        test_project._init_tekton_project()
+
+        self.assertEqual(original_rom_path,
+                         test_project._tekton_project.source_rom_path,
+                         "TektonProject object has wrong source_rom_path!")

@@ -38,6 +38,9 @@ class TRProject:
         if args.seed is not None:
             self.config.seed = args.seed
 
-    def write_bytes_to_output_file(self, bytes_string):
+    def _init_tekton_project(self):
+        self._tekton_project.source_rom_path = self.original_rom_path
+
+    def _write_bytes_to_output_file(self, bytes_string):
         with open(self.modified_rom_path, 'wb') as outfile:
             outfile.write(bytes_string)
