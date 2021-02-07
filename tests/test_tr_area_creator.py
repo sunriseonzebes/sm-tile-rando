@@ -34,12 +34,14 @@ class TestTRAreaCreator(unittest.TestCase):
                         msg="TRRoomCreator.generate_map_grid did not return a TRMapGrid object!")
         room_coords = [None, None]
         for row in range(actual_result.height):
-            for col in range(actual_result.height):
+            for col in range(actual_result.width):
                 if actual_result[col][row] == test_room:
                     room_coords = [col, row]
                     break
             if room_coords != [None, None]:
                 break
+
+        print(actual_result)
 
         self.assertNotEqual([None, None], room_coords, "Landing Site not found in MapGrid!")
 
@@ -49,4 +51,3 @@ class TestTRAreaCreator(unittest.TestCase):
                                  actual_result[row][col],
                                  "Landing Site was not correctly added to Map Grid!")
 
-        print(actual_result)

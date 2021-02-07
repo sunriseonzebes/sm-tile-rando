@@ -11,6 +11,7 @@ class TRAreaCreator:
 
         return_grid = TRMapGrid(35, 20)
         landing_site_coords = self._get_landing_site_coords(return_grid.width, return_grid.height)
+        print(landing_site_coords)
 
         self.rooms[0x791f8].write_level_data = False
         return_grid.add_room(self.rooms[0x791f8], landing_site_coords[0], landing_site_coords[1])
