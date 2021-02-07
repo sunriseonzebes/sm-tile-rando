@@ -38,6 +38,11 @@ class TRProject:
         if args.seed is not None:
             self.config.seed = args.seed
 
+    def randomize(self):
+        self._init_tekton_project()
+        modified_rom_contents = self._tekton_project.get_modified_rom_contents()
+        self._write_bytes_to_output_file(modified_rom_contents)
+
     def _init_tekton_project(self):
         self._tekton_project.source_rom_path = self.original_rom_path
 
