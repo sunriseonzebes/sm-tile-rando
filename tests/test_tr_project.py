@@ -44,3 +44,19 @@ class TestTRProject(unittest.TestCase):
         self.assertEqual('54321',
                          test_project.config.seed,
                          "parse_args did not load config.seed correctly!")
+
+    def test_write_bytes_to_output_file(self):
+        test_project = tr_project.TRProject()
+        expected_result = b'\x00\x11\x22\x33'
+
+        test_rom_path = os.path.join('fixtures', 'test_output_rom.sfc')
+
+        test_project.modified_rom_path = test_rom_path
+        test_project.write_bytes_to_output_file(expected_result)
+
+        with open(test_rom_path, 'rb') as f:
+            actual_result = f.read()
+        self.assertEqual(expected_result,
+                         actual_result,
+                         "TRProject.write_bytes_to_output_file did not write correct byte sequence!")
+

@@ -37,3 +37,7 @@ class TRProject:
         self.modified_rom_path = args.o
         if args.seed is not None:
             self.config.seed = args.seed
+
+    def write_bytes_to_output_file(self, bytes_string):
+        with open(self.modified_rom_path, 'wb') as outfile:
+            outfile.write(bytes_string)
