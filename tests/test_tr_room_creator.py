@@ -24,3 +24,4 @@ class TestTRRoomCreator(unittest.TestCase):
         for col in range(actual_result.width):
             for row in range(actual_result.height):
                 self.assertIsNone(actual_result[col][row])
+        print(actual_result)

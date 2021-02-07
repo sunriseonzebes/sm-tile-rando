@@ -2,6 +2,22 @@ class TRMapGrid:
     def __init__(self, width=1, height=1):
         self._squares = [[None for row in range(height)] for col in range(width)]
 
+    def __repr__(self):
+        print(self.__str__())
+
+    def __str__(self):
+        return_string = "TRMapGrid Object:\n"
+        for row in range(self.height):
+            for col in range(self.width):
+                if self._squares[col][row] is None:
+                    return_string += '.'
+                else:
+                    return_string += 'X'
+            return_string += "\n"
+        return_string += "\n"
+
+        return return_string
+
     def __getitem__(self, item):
         return self._squares[item]
 
