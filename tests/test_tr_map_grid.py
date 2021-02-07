@@ -3,6 +3,7 @@ import unittest
 from testing_common import tile_rando, original_rom_path, load_test_data_dir
 
 from tile_rando import tr_map_grid
+from tekton import tekton_room
 
 class TestTRMapGrid(unittest.TestCase):
     def test_init(self):
@@ -22,3 +23,22 @@ class TestTRMapGrid(unittest.TestCase):
         test_object = 4.5
         test_grid._squares[0][0] = test_object
         self.assertEqual(test_object, test_grid[0][0], "TRMapGrid _get_item did not find correct object!")
+
+    def test_add_room(self):
+        test_data_dir = os.path.join(os.path.dirname((os.path.abspath(__file__))),
+                                     'fixtures',
+                                     'test_tr_map_grid',
+                                     'test_add_room'
+                                     )
+        test_data = load_test_data_dir(test_data_dir)
+
+        for test_case in test_data:
+            test_grid = tr_map_grid.TRMapGrid(test_case["grid_width"], test_case["grid_height"])
+            test_room = tekton_room.TektonRoom(test_case["room_width"], test_case["room_height"])
+            test_grid.add_room(test_room, test_case["x_offset"], test_case["y_offset"])
+            for col in range(test_case["x_offset"], test_case["x_offset"] + test_case["room_width"]):
+                for row in range(test_case["y_offset"], test_case["y_offset"] + test_case["room_height"]):
+                    self.assertEqual(test_room, test_grid[col][row], "Room was not added to TRMapGrid correctly!")
+
+
+
