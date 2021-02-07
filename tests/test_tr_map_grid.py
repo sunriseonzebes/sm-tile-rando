@@ -24,6 +24,18 @@ class TestTRMapGrid(unittest.TestCase):
         test_grid._squares[0][0] = test_object
         self.assertEqual(test_object, test_grid[0][0], "TRMapGrid _get_item did not find correct object!")
 
+    def test_width(self):
+        test_grid = tr_map_grid.TRMapGrid(1, 1)
+        self.assertEqual(1, test_grid.width, "TRMapGrid.width did not return the correct value!")
+        test_grid = tr_map_grid.TRMapGrid(4, 1)
+        self.assertEqual(4, test_grid.width, "TRMapGrid.width did not return the correct value!")
+
+    def test_height(self):
+        test_grid = tr_map_grid.TRMapGrid(1, 1)
+        self.assertEqual(1, test_grid.height, "TRMapGrid.height did not return the correct value!")
+        test_grid = tr_map_grid.TRMapGrid(1, 7)
+        self.assertEqual(7, test_grid.height, "TRMapGrid.height did not return the correct value!")
+
     def test_add_room(self):
         test_data_dir = os.path.join(os.path.dirname((os.path.abspath(__file__))),
                                      'fixtures',
