@@ -1,7 +1,7 @@
 import random
 from .tr_map_grid import TRMapGrid
 
-class TRRoomCreator:
+class TRAreaCreator:
     def __init__(self):
         self.rooms = None
 
