@@ -49,5 +49,4 @@ class TestTRAreaCreator(unittest.TestCase):
                                  actual_result[row][col],
                                  "Landing Site was not correctly added to Map Grid!")
 
-
         print(actual_result)

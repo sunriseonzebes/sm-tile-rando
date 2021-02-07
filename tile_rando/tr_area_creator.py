@@ -9,7 +9,7 @@ class TRAreaCreator:
         if not 0x791f8 in self.rooms.keys():
             raise RequiredRoomMissingError("0x791f8 is a required room.")
 
-        return_grid = TRMapGrid(25, 15)
+        return_grid = TRMapGrid(35, 20)
         landing_site_coords = self._get_landing_site_coords(return_grid.width, return_grid.height)
 
         self.rooms[0x791f8].write_level_data = False
