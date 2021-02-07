@@ -5,6 +5,6 @@ class TRRoomCreator:
         self.rooms = None
 
     def generate_map_grid(self):
-        return_grid = TRMapGrid()
+        return_grid = TRMapGrid(25, 15)
 
         return return_grid

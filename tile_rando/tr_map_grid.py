@@ -10,9 +10,9 @@ class TRMapGrid:
         for row in range(self.height):
             for col in range(self.width):
                 if self._squares[col][row] is None:
-                    return_string += '.'
+                    return_string += '. '
                 else:
-                    return_string += 'X'
+                    return_string += 'X '
             return_string += "\n"
         return_string += "\n"
 
