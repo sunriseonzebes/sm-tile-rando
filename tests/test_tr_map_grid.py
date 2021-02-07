@@ -16,3 +16,9 @@ class TestTRMapGrid(unittest.TestCase):
         self.assertEqual(25, len(test_grid._squares), "TRMapGrid.squares has the wrong width!")
         for i in range(len(test_grid._squares)):
             self.assertEqual(15, len(test_grid._squares[i]), "TRMapGrid.squares has the wrong height!")
+
+    def test_get_item(self):
+        test_grid = tr_map_grid.TRMapGrid(1, 1)
+        test_object = 4.5
+        test_grid._squares[0][0] = test_object
+        self.assertEqual(test_object, test_grid[0][0], "TRMapGrid _get_item did not find correct object!")
