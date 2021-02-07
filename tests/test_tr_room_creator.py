@@ -3,7 +3,7 @@ import unittest
 from testing_common import tile_rando, original_rom_path, load_test_data_dir
 
 from tile_rando import tr_room_creator, tr_map_grid
-from tekton import tekton_room_dict
+from tekton import tekton_room_dict, tekton_room
 
 
 class TestTRRoomCreator(unittest.TestCase):
@@ -19,11 +19,35 @@ class TestTRRoomCreator(unittest.TestCase):
         test_creator = tr_room_creator.TRRoomCreator()
         test_creator.rooms = test_dict
         with self.assertRaises(tr_room_creator.RequiredRoomMissingError):
-            actual_result = test_creator.generate_map_grid()
+            test_creator.generate_map_grid()
 
-        # self.assertTrue(isinstance(actual_result, tr_map_grid.TRMapGrid),
-        #                 msg="TRRoomCreator.generate_map_grid did not return a TRMapGrid object!")
-        # for col in range(actual_result.width):
-        #     for row in range(actual_result.height):
-        #         self.assertIsNone(actual_result[col][row])
-        # print(actual_result)
+        test_dict = tekton_room_dict.TektonRoomDict()
+        test_room = tekton_room.TektonRoom(9, 5)
+        test_room.header = 0x791f8
+        test_dict.add_room(test_room)
+
+        test_creator = tr_room_creator.TRRoomCreator()
+        test_creator.rooms = test_dict
+
+        actual_result = test_creator.generate_map_grid()
+        self.assertTrue(isinstance(actual_result, tr_map_grid.TRMapGrid),
+                        msg="TRRoomCreator.generate_map_grid did not return a TRMapGrid object!")
+        room_coords = [None, None]
+        for row in range(actual_result.height):
+            for col in range(actual_result.height):
+                if actual_result[col][row] == test_room:
+                    room_coords = [col, row]
+                    break
+            if room_coords != [None, None]:
+                break
+
+        self.assertNotEqual([None, None], room_coords, "Landing Site not found in MapGrid!")
+
+        for row in range(room_coords[0], room_coords[0] + 9):
+            for col in range(room_coords[1], room_coords[1] + 5):
+                self.assertEqual(test_room,
+                                 actual_result[row][col],
+                                 "Landing Site was not correctly added to Map Grid!")
+
+
+        print(actual_result)
