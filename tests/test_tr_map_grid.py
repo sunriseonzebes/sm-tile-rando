@@ -40,5 +40,10 @@ class TestTRMapGrid(unittest.TestCase):
                 for row in range(test_case["y_offset"], test_case["y_offset"] + test_case["room_height"]):
                     self.assertEqual(test_room, test_grid[col][row], "Room was not added to TRMapGrid correctly!")
 
+        with self.assertRaises(tr_map_grid.RoomExceedsGridBoundariesError):
+            test_grid = tr_map_grid.TRMapGrid(4, 4)
+            test_room = tekton_room.TektonRoom(4, 4)
+            test_grid.add_room(test_room, 2, 2)
+
 
 
