@@ -18,10 +18,12 @@ class TestTRRoomCreator(unittest.TestCase):
         test_dict = tekton_room_dict.TektonRoomDict()
         test_creator = tr_room_creator.TRRoomCreator()
         test_creator.rooms = test_dict
-        actual_result = test_creator.generate_map_grid()
-        self.assertTrue(isinstance(actual_result, tr_map_grid.TRMapGrid),
-                        msg="TRRoomCreator.generate_map_grid did not return a TRMapGrid object!")
-        for col in range(actual_result.width):
-            for row in range(actual_result.height):
-                self.assertIsNone(actual_result[col][row])
-        print(actual_result)
+        with self.assertRaises(tr_room_creator.RequiredRoomMissingError):
+            actual_result = test_creator.generate_map_grid()
+
+        # self.assertTrue(isinstance(actual_result, tr_map_grid.TRMapGrid),
+        #                 msg="TRRoomCreator.generate_map_grid did not return a TRMapGrid object!")
+        # for col in range(actual_result.width):
+        #     for row in range(actual_result.height):
+        #         self.assertIsNone(actual_result[col][row])
+        # print(actual_result)
