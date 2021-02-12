@@ -45,11 +45,13 @@ class TestTRAreaCreator(unittest.TestCase):
         print(actual_result)
 
         self.assertNotEqual([None, None], room_coords, "Landing Site not found in MapGrid!")
+        self._verify_room_placeholder_placement(room_coords, actual_result)
 
-        landing_site_top_left = actual_result[room_coords[0]][room_coords[1]]
-        for row in range(room_coords[0], room_coords[0] + 9):
-            for col in range(room_coords[1], room_coords[1] + 5):
-                self.assertEqual(landing_site_top_left,
-                                 actual_result[row][col],
+    def _verify_room_placeholder_placement(self, room_coords, map_grid):
+        room_placeholder = map_grid[room_coords[0]][room_coords[1]]
+        for row in range(room_coords[0], room_coords[0] + room_placeholder.width):
+            for col in range(room_coords[1], room_coords[1] + room_placeholder.height):
+                self.assertEqual(room_placeholder,
+                                 map_grid[row][col],
                                  "Landing Site was not correctly added to Map Grid!")
 

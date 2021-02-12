@@ -1,6 +1,7 @@
 import random
 from .tr_map_grid import TRMapGrid
 from .tr_room_placeholder import TRRoomPlaceholder
+from .tr_room_generator import TRSimpleBoxRoomGenerator
 
 class TRAreaCreator:
     def __init__(self):
@@ -19,6 +20,9 @@ class TRAreaCreator:
                                          landing_site_coords[0],
                                          landing_site_coords[1])
 
+        #for i in range(1):
+
+
         return return_grid
 
     def _get_landing_site_coords(self, grid_width, grid_height):
@@ -34,6 +38,17 @@ class TRAreaCreator:
         placeholder.tekton_room = landing_site_tekton_room
         placeholder.width = 9
         placeholder.height = 5
+        #placeholder.door_attach_points.append((0, 4))  # Only add the door to Parlor
+
+        return placeholder
+
+    def _create_room_placeholder(self):
+        placeholder = TRRoomPlaceholder()
+        placeholder.room_generator = TRSimpleBoxRoomGenerator()
+        placeholder.width = placeholder.room_generator.generate_room_width()
+        placeholder.width = placeholder.room_generator.generate_room_height()
+        placeholder.door_attach_points = placeholder.room_generator.generate_door_attach_points()
+
 
         return placeholder
 
