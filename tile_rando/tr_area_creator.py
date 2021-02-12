@@ -3,7 +3,7 @@ from tekton.tekton_door import DoorExitDirection
 from .tr_map_grid import TRMapGrid
 from .tr_room_placeholder import TRRoomPlaceholder
 from .tr_room_generator import TRSimpleBoxRoomGenerator
-from .tr_door_attach_point import TRDoorAttachPoint
+from .tr_door_placeholder import TRDoorAttachPoint
 
 class TRAreaCreator:
     def __init__(self):
@@ -40,7 +40,7 @@ class TRAreaCreator:
         placeholder.tekton_room = landing_site_tekton_room
         placeholder.width = 9
         placeholder.height = 5
-        placeholder.door_attach_points.append(TRDoorAttachPoint(0, 4, [DoorExitDirection.LEFT]))  # Only add the door to Parlor
+        placeholder.door_attach_points.append(TRDoorAttachPoint(0, 4, [DoorExitDirection.RIGHT]))  # Only add the door to Parlor
 
         return placeholder
 

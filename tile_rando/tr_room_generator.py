@@ -1,7 +1,7 @@
 import random
 
 from tekton.tekton_door import DoorExitDirection
-from .tr_door_attach_point import TRDoorAttachPoint
+from .tr_door_placeholder import TRDoorAttachPoint
 
 class TRRoomGenerator:
     def __init__(self):
@@ -39,13 +39,13 @@ class TRSimpleBoxRoomGenerator(TRRoomGenerator):
                         col in [0, self._width - 1]:
                     new_attach_point = TRDoorAttachPoint(col, row, [])
                     if row == 0:
-                        new_attach_point.allowed_door_exit_directions.append(DoorExitDirection.UP)
-                    if row == self._height - 1:
                         new_attach_point.allowed_door_exit_directions.append(DoorExitDirection.DOWN)
+                    if row == self._height - 1:
+                        new_attach_point.allowed_door_exit_directions.append(DoorExitDirection.UP)
                     if col == 0:
-                        new_attach_point.allowed_door_exit_directions.append(DoorExitDirection.LEFT)
-                    if col == self._width - 1:
                         new_attach_point.allowed_door_exit_directions.append(DoorExitDirection.RIGHT)
+                    if col == self._width - 1:
+                        new_attach_point.allowed_door_exit_directions.append(DoorExitDirection.LEFT)
                     attach_points.append(new_attach_point)
 
         return attach_points
