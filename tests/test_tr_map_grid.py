@@ -2,7 +2,7 @@ import os
 import unittest
 from testing_common import tile_rando, original_rom_path, load_test_data_dir
 
-from tile_rando import tr_map_grid
+from tile_rando import tr_map_grid, tr_room_placeholder
 from tekton import tekton_room
 
 class TestTRMapGrid(unittest.TestCase):
@@ -46,16 +46,24 @@ class TestTRMapGrid(unittest.TestCase):
 
         for test_case in test_data:
             test_grid = tr_map_grid.TRMapGrid(test_case["grid_width"], test_case["grid_height"])
-            test_room = tekton_room.TektonRoom(test_case["room_width"], test_case["room_height"])
-            test_grid.add_room(test_room, test_case["x_offset"], test_case["y_offset"])
+            test_room_placeholder = tr_room_placeholder.TRRoomPlaceholder()
+            test_room_placeholder.width = test_case["room_width"]
+            test_room_placeholder.height = test_case["room_height"]
+            test_room_placeholder.tekton_room = tekton_room.TektonRoom(test_case["room_width"], test_case["room_height"])
+            test_grid.add_room_placeholder(test_room_placeholder, test_case["x_offset"], test_case["y_offset"])
             for col in range(test_case["x_offset"], test_case["x_offset"] + test_case["room_width"]):
                 for row in range(test_case["y_offset"], test_case["y_offset"] + test_case["room_height"]):
-                    self.assertEqual(test_room, test_grid[col][row], "Room was not added to TRMapGrid correctly!")
+                    self.assertEqual(test_room_placeholder,
+                                     test_grid[col][row],
+                                     "Room was not added to TRMapGrid correctly!")
 
         with self.assertRaises(tr_map_grid.RoomExceedsGridBoundariesError):
             test_grid = tr_map_grid.TRMapGrid(4, 4)
-            test_room = tekton_room.TektonRoom(4, 4)
-            test_grid.add_room(test_room, 2, 2)
+            test_room_placeholder = tr_room_placeholder.TRRoomPlaceholder()
+            test_room_placeholder.width = 4
+            test_room_placeholder.height = 4
+            test_room_placeholder.tekton_room = tekton_room.TektonRoom(4, 4)
+            test_grid.add_room_placeholder(test_room_placeholder, 2, 2)
 
 
 

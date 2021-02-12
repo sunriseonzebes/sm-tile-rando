@@ -2,7 +2,7 @@ import os
 import unittest
 from testing_common import tile_rando, original_rom_path, load_test_data_dir
 
-from tile_rando import tr_area_creator, tr_map_grid
+from tile_rando import tr_area_creator, tr_map_grid, tr_room_placeholder
 from tekton import tekton_room_dict, tekton_room
 
 
@@ -35,7 +35,8 @@ class TestTRAreaCreator(unittest.TestCase):
         room_coords = [None, None]
         for row in range(actual_result.height):
             for col in range(actual_result.width):
-                if actual_result[col][row] == test_room:
+                if isinstance(actual_result[col][row], tr_room_placeholder.TRRoomPlaceholder) and \
+                        actual_result[col][row].tekton_room == test_room:
                     room_coords = [col, row]
                     break
             if room_coords != [None, None]:
@@ -45,9 +46,10 @@ class TestTRAreaCreator(unittest.TestCase):
 
         self.assertNotEqual([None, None], room_coords, "Landing Site not found in MapGrid!")
 
+        landing_site_top_left = actual_result[room_coords[0]][room_coords[1]]
         for row in range(room_coords[0], room_coords[0] + 9):
             for col in range(room_coords[1], room_coords[1] + 5):
-                self.assertEqual(test_room,
+                self.assertEqual(landing_site_top_left,
                                  actual_result[row][col],
                                  "Landing Site was not correctly added to Map Grid!")
 

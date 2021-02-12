@@ -9,3 +9,7 @@ class TestTRRoomPlaceholder(unittest.TestCase):
         test_ph = tr_room_placeholder.TRRoomPlaceholder()
         self.assertTrue(isinstance(test_ph, tr_room_placeholder.TRRoomPlaceholder),
                         msg="TRRoomPlaceholder did not initialize correctly!")
+        self.assertIsNone(test_ph.tekton_room, msg="TRRoomPlaceholder did not initialize correctly!")
+        self.assertIsNone(test_ph.room_generator, msg="TRRoomPlaceholder did not initialize correctly!")
+        self.assertEqual(1, test_ph.width, "TRRoomPlaceholder did not initialize correctly!")
+        self.assertEqual(1, test_ph.height, "TRRoomPlaceholder did not initialize correctly!")

@@ -29,13 +29,13 @@ class TRMapGrid:
     def height(self):
         return len(self._squares[0])
 
-    def add_room(self, new_room, x_position, y_position):
-        if new_room.width_screens + x_position > self.width or \
-                new_room.height_screens + y_position > self.height:
+    def add_room_placeholder(self, new_room_placeholder, x_position, y_position):
+        if new_room_placeholder.width + x_position > self.width or \
+                new_room_placeholder.height + y_position > self.height:
             raise RoomExceedsGridBoundariesError
-        for col in range(x_position, x_position+new_room.width_screens):
-            for row in range(y_position, y_position+new_room.height_screens):
-                self._squares[col][row] = new_room
+        for col in range(x_position, x_position + new_room_placeholder.width):
+            for row in range(y_position, y_position + new_room_placeholder.height):
+                self._squares[col][row] = new_room_placeholder
 
 
 class RoomExceedsGridBoundariesError(Exception):
