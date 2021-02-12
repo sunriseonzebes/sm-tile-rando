@@ -9,3 +9,9 @@ class TestTRRoomGenerator(unittest.TestCase):
         test_gen = tr_room_generator.TRRoomGenerator()
         self.assertTrue(isinstance(test_gen, tr_room_generator.TRRoomGenerator),
                         msg="TRRoomGenerator did not initialize correctly!")
+
+class TestTRSimpleBoxRoomGenerator(unittest.TestCase):
+    def test_init(self):
+        test_gen = tr_room_generator.TRSimpleBoxRoomGenerator()
+        self.assertTrue(isinstance(test_gen, tr_room_generator.TRSimpleBoxRoomGenerator),
+                        msg="TRSimpleBoxRoomGenerator did not initialize correctly!")
