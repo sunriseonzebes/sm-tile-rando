@@ -13,3 +13,4 @@ class TestTRRoomPlaceholder(unittest.TestCase):
         self.assertIsNone(test_ph.room_generator, msg="TRRoomPlaceholder did not initialize correctly!")
         self.assertEqual(1, test_ph.width, "TRRoomPlaceholder did not initialize correctly!")
         self.assertEqual(1, test_ph.height, "TRRoomPlaceholder did not initialize correctly!")
+        self.assertEqual([], test_ph.door_attach_points, "TRRoomPlaceholder did not initialize correctly!")
