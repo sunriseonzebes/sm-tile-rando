@@ -15,7 +15,6 @@ class TRAreaCreator:
 
         return_grid = TRMapGrid(35, 20)
         landing_site_coords = self._get_landing_site_coords(return_grid.width, return_grid.height)
-        print(landing_site_coords)
 
         self.rooms[0x791f8].write_level_data = False
         return_grid.add_room_placeholder(self._create_landing_site_placeholder(self.rooms[0x791f8]),
@@ -40,7 +39,7 @@ class TRAreaCreator:
         placeholder.tekton_room = landing_site_tekton_room
         placeholder.width = 9
         placeholder.height = 5
-        placeholder.door_attach_points.append(TRDoorAttachPoint(0, 4, [DoorExitDirection.RIGHT]))  # Only add the door to Parlor
+        placeholder.available_door_attach_points.append(TRDoorAttachPoint(0, 4, [DoorExitDirection.RIGHT]))  # Only add the door to Parlor
 
         return placeholder
 
@@ -49,7 +48,7 @@ class TRAreaCreator:
         placeholder.room_generator = TRSimpleBoxRoomGenerator()
         placeholder.width = placeholder.room_generator.generate_room_width()
         placeholder.width = placeholder.room_generator.generate_room_height()
-        placeholder.door_attach_points = placeholder.room_generator.generate_door_attach_points()
+        placeholder.available_door_attach_points = placeholder.room_generator.generate_door_attach_points()
 
         return placeholder
 

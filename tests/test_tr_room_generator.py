@@ -18,6 +18,7 @@ class TestTRSimpleBoxRoomGenerator(unittest.TestCase):
                         msg="TRSimpleBoxRoomGenerator did not initialize correctly!")
         self.assertEqual(1, test_gen._width, "TRSimpleBoxRoomGenerator did not initialize correctly!")
         self.assertEqual(1, test_gen._height, "TRSimpleBoxRoomGenerator did not initialize correctly!")
+        self.assertEqual(0, test_gen._num_doors, "TRSimpleBoxRoomGenerator did not initialize correctly!")
 
     def test_generate_door_attach_points(self):
         test_gen = tr_room_generator.TRSimpleBoxRoomGenerator()

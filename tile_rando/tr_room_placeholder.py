@@ -4,4 +4,5 @@ class TRRoomPlaceholder:
         self.room_generator = None
         self.width = 1
         self.height = 1
-        self.door_attach_points = []
+        self.available_door_attach_points = []
+        self.door_placeholders = []

@@ -42,8 +42,6 @@ class TestTRAreaCreator(unittest.TestCase):
             if room_coords != [None, None]:
                 break
 
-        print(actual_result)
-
         self.assertNotEqual([None, None], room_coords, "Landing Site not found in MapGrid!")
         self._verify_room_placeholder_placement(room_coords, actual_result)
 
