@@ -1,6 +1,7 @@
 class TRMapGrid:
     def __init__(self, width=1, height=1):
         self._squares = [[None for row in range(height)] for col in range(width)]
+        self.rooms = []
 
     def __repr__(self):
         print(self.__str__())
@@ -36,6 +37,7 @@ class TRMapGrid:
         for col in range(x_position, x_position + new_room_placeholder.width):
             for row in range(y_position, y_position + new_room_placeholder.height):
                 self._squares[col][row] = new_room_placeholder
+        self.rooms.append(new_room_placeholder)
 
 
 class RoomExceedsGridBoundariesError(Exception):

@@ -51,6 +51,7 @@ class TestTRMapGrid(unittest.TestCase):
             test_room_placeholder.height = test_case["room_height"]
             test_room_placeholder.tekton_room = tekton_room.TektonRoom(test_case["room_width"], test_case["room_height"])
             test_grid.add_room_placeholder(test_room_placeholder, test_case["x_offset"], test_case["y_offset"])
+            self.assertTrue(test_room_placeholder in test_grid.rooms, msg="Room was not added to TRMapGrid.rooms!")
             for col in range(test_case["x_offset"], test_case["x_offset"] + test_case["room_width"]):
                 for row in range(test_case["y_offset"], test_case["y_offset"] + test_case["room_height"]):
                     self.assertEqual(test_room_placeholder,

@@ -52,6 +52,9 @@ class TRAreaCreator:
 
         return placeholder
 
+    #def _attach_room_placeholder(self, existing_placeholder, new_placeholder):
+
+
 
 
 
