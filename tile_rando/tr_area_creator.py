@@ -7,17 +7,17 @@ from .tr_door_placeholder import TRDoorAttachPoint
 
 class TRAreaCreator:
     def __init__(self):
-        self.rooms = None
+        self.source_rooms = None
 
     def generate_map_grid(self):
-        if not 0x791f8 in self.rooms.keys():
+        if not 0x791f8 in self.source_rooms.keys():
             raise RequiredRoomMissingError("0x791f8 is a required room.")
 
         return_grid = TRMapGrid(35, 20)
         landing_site_coords = self._get_landing_site_coords(return_grid.width, return_grid.height)
 
-        self.rooms[0x791f8].write_level_data = False
-        return_grid.add_room_placeholder(self._create_landing_site_placeholder(self.rooms[0x791f8]),
+        self.source_rooms[0x791f8].write_level_data = False
+        return_grid.add_room_placeholder(self._create_landing_site_placeholder(self.source_rooms[0x791f8]),
                                          landing_site_coords[0],
                                          landing_site_coords[1])
 
