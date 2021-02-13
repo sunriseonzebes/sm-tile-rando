@@ -39,7 +39,7 @@ class TRAreaCreator:
         placeholder.tekton_room = landing_site_tekton_room
         placeholder.width = 9
         placeholder.height = 5
-        placeholder.available_door_attach_points.append(TRDoorAttachPoint(0, 4, [DoorExitDirection.RIGHT]))  # Only add the door to Parlor
+        placeholder.possible_door_attach_points.append(TRDoorAttachPoint(0, 4, [DoorExitDirection.RIGHT]))  # Only add the door to Parlor
 
         return placeholder
 
@@ -48,7 +48,7 @@ class TRAreaCreator:
         placeholder.room_generator = TRSimpleBoxRoomGenerator()
         placeholder.width = placeholder.room_generator.generate_room_width()
         placeholder.width = placeholder.room_generator.generate_room_height()
-        placeholder.available_door_attach_points = placeholder.room_generator.generate_door_attach_points()
+        placeholder.possible_door_attach_points = placeholder.room_generator.generate_door_attach_points()
 
         return placeholder
 
