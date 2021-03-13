@@ -3,7 +3,7 @@ import unittest
 from testing_common import tile_rando
 
 from tekton.tekton_door import DoorExitDirection
-from tile_rando import tr_room_generator, tr_door_placeholder
+from tile_rando import tr_room_generator, tr_door_attach_point
 
 class TestTRRoomGenerator(unittest.TestCase):
     def test_init(self):
@@ -24,10 +24,10 @@ class TestTRSimpleBoxRoomGenerator(unittest.TestCase):
         test_gen = tr_room_generator.TRSimpleBoxRoomGenerator()
         test_gen._width = 1
         test_gen._height = 1
-        expected_result = [tr_door_placeholder.TRDoorPlaceholder(0, 0, DoorExitDirection.DOWN),
-                           tr_door_placeholder.TRDoorPlaceholder(0, 0, DoorExitDirection.UP),
-                           tr_door_placeholder.TRDoorPlaceholder(0, 0, DoorExitDirection.RIGHT),
-                           tr_door_placeholder.TRDoorPlaceholder(0, 0, DoorExitDirection.LEFT)]
+        expected_result = [tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorExitDirection.DOWN),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorExitDirection.UP),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorExitDirection.RIGHT),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorExitDirection.LEFT)]
         actual_result = test_gen.generate_door_attach_points()
         for i in range(len(expected_result)):
             self.assertEqual(expected_result[i].h_screen,
@@ -43,14 +43,14 @@ class TestTRSimpleBoxRoomGenerator(unittest.TestCase):
         test_gen = tr_room_generator.TRSimpleBoxRoomGenerator()
         test_gen._width = 2
         test_gen._height = 2
-        expected_result = [tr_door_placeholder.TRDoorPlaceholder(0, 0, DoorExitDirection.DOWN),
-                           tr_door_placeholder.TRDoorPlaceholder(0, 0, DoorExitDirection.RIGHT),
-                           tr_door_placeholder.TRDoorPlaceholder(0, 1, DoorExitDirection.UP),
-                           tr_door_placeholder.TRDoorPlaceholder(0, 1, DoorExitDirection.RIGHT),
-                           tr_door_placeholder.TRDoorPlaceholder(1, 0, DoorExitDirection.DOWN),
-                           tr_door_placeholder.TRDoorPlaceholder(1, 0, DoorExitDirection.LEFT),
-                           tr_door_placeholder.TRDoorPlaceholder(1, 0, DoorExitDirection.UP),
-                           tr_door_placeholder.TRDoorPlaceholder(1, 0, DoorExitDirection.LEFT)]
+        expected_result = [tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorExitDirection.DOWN),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorExitDirection.RIGHT),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 1, DoorExitDirection.UP),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 1, DoorExitDirection.RIGHT),
+                           tr_door_attach_point.TRDoorAttachPoint(1, 0, DoorExitDirection.DOWN),
+                           tr_door_attach_point.TRDoorAttachPoint(1, 0, DoorExitDirection.LEFT),
+                           tr_door_attach_point.TRDoorAttachPoint(1, 0, DoorExitDirection.UP),
+                           tr_door_attach_point.TRDoorAttachPoint(1, 0, DoorExitDirection.LEFT)]
         actual_result = test_gen.generate_door_attach_points()
         for i in range(len(expected_result)):
             self.assertEqual(expected_result[i].h_screen,
@@ -66,18 +66,18 @@ class TestTRSimpleBoxRoomGenerator(unittest.TestCase):
         test_gen = tr_room_generator.TRSimpleBoxRoomGenerator()
         test_gen._width = 3
         test_gen._height = 3
-        expected_result = [tr_door_placeholder.TRDoorPlaceholder(0, 0, DoorExitDirection.DOWN),
-                           tr_door_placeholder.TRDoorPlaceholder(0, 0, DoorExitDirection.RIGHT),
-                           tr_door_placeholder.TRDoorPlaceholder(0, 1, DoorExitDirection.RIGHT),
-                           tr_door_placeholder.TRDoorPlaceholder(0, 2, DoorExitDirection.UP),
-                           tr_door_placeholder.TRDoorPlaceholder(0, 2, DoorExitDirection.RIGHT),
-                           tr_door_placeholder.TRDoorPlaceholder(1, 0, DoorExitDirection.DOWN),
-                           tr_door_placeholder.TRDoorPlaceholder(1, 2, DoorExitDirection.UP),
-                           tr_door_placeholder.TRDoorPlaceholder(2, 0, DoorExitDirection.DOWN),
-                           tr_door_placeholder.TRDoorPlaceholder(2, 0, DoorExitDirection.LEFT),
-                           tr_door_placeholder.TRDoorPlaceholder(2, 1, DoorExitDirection.LEFT),
-                           tr_door_placeholder.TRDoorPlaceholder(2, 2, DoorExitDirection.UP),
-                           tr_door_placeholder.TRDoorPlaceholder(2, 2, DoorExitDirection.LEFT)]
+        expected_result = [tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorExitDirection.DOWN),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorExitDirection.RIGHT),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 1, DoorExitDirection.RIGHT),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 2, DoorExitDirection.UP),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 2, DoorExitDirection.RIGHT),
+                           tr_door_attach_point.TRDoorAttachPoint(1, 0, DoorExitDirection.DOWN),
+                           tr_door_attach_point.TRDoorAttachPoint(1, 2, DoorExitDirection.UP),
+                           tr_door_attach_point.TRDoorAttachPoint(2, 0, DoorExitDirection.DOWN),
+                           tr_door_attach_point.TRDoorAttachPoint(2, 0, DoorExitDirection.LEFT),
+                           tr_door_attach_point.TRDoorAttachPoint(2, 1, DoorExitDirection.LEFT),
+                           tr_door_attach_point.TRDoorAttachPoint(2, 2, DoorExitDirection.UP),
+                           tr_door_attach_point.TRDoorAttachPoint(2, 2, DoorExitDirection.LEFT)]
         actual_result = test_gen.generate_door_attach_points()
         self.assertEqual(len(expected_result),
                          len(actual_result),
