@@ -39,6 +39,22 @@ class TRMapGrid:
                 self._squares[col][row] = new_room_placeholder
         self.rooms.append(new_room_placeholder)
 
+    def room_placement_overlaps_existing_room(self, proposed_room, proposed_top_row, proposed_left_col):
+        proposed_x_coords = [*range(proposed_top_row, proposed_top_row + proposed_room.width)]
+        proposed_y_coords = [*range(proposed_left_col, proposed_left_col + proposed_room.height)]
+
+        for row in proposed_y_coords:
+            for col in proposed_x_coords:
+                if self._squares[col][row] is not None:
+                    return True
+        return False
+
+    def room_placement_in_bounds(self, proposed_room, proposed_top_row, proposed_left_col):
+        return proposed_top_row >= 0 and \
+            proposed_left_col >= 0 and \
+            ((proposed_top_row + proposed_room.height) - 1) < self.height and \
+            ((proposed_left_col + proposed_room.width) - 1) < self.width
+
 
 class RoomExceedsGridBoundariesError(Exception):
     """Exception raised when adding a room that goes past the boundaries of the TRMapGrid."""

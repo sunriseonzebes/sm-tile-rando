@@ -66,5 +66,46 @@ class TestTRMapGrid(unittest.TestCase):
             test_room_placeholder.tekton_room = tekton_room.TektonRoom(4, 4)
             test_grid.add_room_placeholder(test_room_placeholder, 2, 2)
 
+    def test_room_placement_overlaps_existing_room(self):
+        test_grid = tr_map_grid.TRMapGrid(16, 16)
+        new_room_ph = tr_room_placeholder.TRRoomPlaceholder(1, 1)
+        actual_result = test_grid.room_placement_overlaps_existing_room(new_room_ph, 0, 0)
+        self.assertFalse(actual_result, msg="room_placement_overlaps_existing_room returned the incorrect result!")
+
+        test_grid.add_room_placeholder(new_room_ph, 0, 0)
+        actual_result = test_grid.room_placement_overlaps_existing_room(new_room_ph, 0, 0)
+        self.assertTrue(actual_result, msg="room_placement_overlaps_existing_room returned the incorrect result!")
+
+        new_room_ph = tr_room_placeholder.TRRoomPlaceholder(4, 4)
+        actual_result = test_grid.room_placement_overlaps_existing_room(new_room_ph, 8, 8)
+        self.assertFalse(actual_result, msg="room_placement_overlaps_existing_room returned the incorrect result!")
+
+        test_grid.add_room_placeholder(new_room_ph, 8, 8)
+        actual_result = test_grid.room_placement_overlaps_existing_room(new_room_ph, 5, 7)
+        self.assertTrue(actual_result, msg="room_placement_overlaps_existing_room returned the incorrect result!")
+
+    def test_room_placement_in_bounds(self):
+        test_grid = tr_map_grid.TRMapGrid(16, 16)
+        new_room_ph = tr_room_placeholder.TRRoomPlaceholder(1, 1)
+        actual_result = test_grid.room_placement_in_bounds(new_room_ph, 0, 0)
+        self.assertTrue(actual_result, msg="room_placement_in_bounds returned the incorrect result!")
+
+        new_room_ph = tr_room_placeholder.TRRoomPlaceholder(4, 4)
+        actual_result = test_grid.room_placement_in_bounds(new_room_ph, 8, 8)
+        self.assertTrue(actual_result, msg="room_placement_in_bounds returned the incorrect result!")
+
+        new_room_ph = tr_room_placeholder.TRRoomPlaceholder(24, 24)
+        actual_result = test_grid.room_placement_in_bounds(new_room_ph, 0, 0)
+        self.assertFalse(actual_result, msg="room_placement_in_bounds returned the incorrect result!")
+
+        new_room_ph = tr_room_placeholder.TRRoomPlaceholder(2, 12)
+        actual_result = test_grid.room_placement_in_bounds(new_room_ph, 15, 15)
+        self.assertFalse(actual_result, msg="room_placement_in_bounds returned the incorrect result!")
+
+        new_room_ph = tr_room_placeholder.TRRoomPlaceholder(2, 2)
+        actual_result = test_grid.room_placement_in_bounds(new_room_ph, 19, 18)
+        self.assertFalse(actual_result, msg="room_placement_in_bounds returned the incorrect result!")
+
+
 
 

@@ -50,7 +50,12 @@ class TRAreaCreator:
 
         return placeholder
 
-    #def _attach_room_placeholder(self, existing_placeholder, new_placeholder):
+    # def _find_legal_attach_point(self, existing_placeholder, new_placeholder):
+    #     existing_remaining_ap = existing_placeholder.available_door_attach_points
+    #
+    #     while len(existing_remaining_ap) > 0:
+    #         new_remaining_ap = new_placeholder.available_door_attach_points
+    #         while len(new_remaining_ap) > 0:
 
 
 
