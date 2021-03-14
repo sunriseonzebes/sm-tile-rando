@@ -13,7 +13,7 @@ class TestTRDoorAttachPoint(unittest.TestCase):
                         msg="TRDoorAttachPoint did not initialize correctly!")
         self.assertEqual(0, test_ap.h_screen, "TRDoorAttachPoint h_screen did not initialize correctly!")
         self.assertEqual(0, test_ap.v_screen, "TRDoorAttachPoint v_screen did not initialize correctly!")
-        self.assertIsNone(test_ap.exit_direction, "TRDoorAttachPoint exit_direction did not initialize correctly!")
+        self.assertIsNone(test_ap.eject_direction, "TRDoorAttachPoint eject_direction did not initialize correctly!")
         self.assertIsNone(test_ap.farside_room, "TRDoorAttachPoint farside_room did not initialize correctly!")
         self.assertIsNone(test_ap.farside_door, "TRDoorAttachPoint farside_door did not initialize correctly!")
 

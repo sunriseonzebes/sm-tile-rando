@@ -1,5 +1,5 @@
 import random
-from tekton.tekton_door import DoorExitDirection
+from tekton.tekton_door import DoorEjectDirection
 
 
 class TRMapGrid:
@@ -54,25 +54,25 @@ class TRMapGrid:
             existing_ap = random.choice(remaining_existing_aps)
             existing_ap_coords = (existing_placeholder_coords[0] + existing_ap.h_screen,
                                   existing_placeholder_coords[1] + existing_ap.v_screen)
-            if existing_ap.exit_direction == DoorExitDirection.RIGHT:
+            if existing_ap.eject_direction == DoorEjectDirection.RIGHT:
                 remaining_new_aps = [ap for ap in new_placeholder.available_door_attach_points if
-                                     ap.exit_direction == DoorExitDirection.LEFT]
-            elif existing_ap.exit_direction == DoorExitDirection.LEFT:
+                                     ap.eject_direction == DoorEjectDirection.LEFT]
+            elif existing_ap.eject_direction == DoorEjectDirection.LEFT:
                 remaining_new_aps = [ap for ap in new_placeholder.available_door_attach_points if
-                                     ap.exit_direction == DoorExitDirection.RIGHT]
-            elif existing_ap.exit_direction == DoorExitDirection.UP:
+                                     ap.eject_direction == DoorEjectDirection.RIGHT]
+            elif existing_ap.eject_direction == DoorEjectDirection.UP:
                 remaining_new_aps = [ap for ap in new_placeholder.available_door_attach_points if
-                                     ap.exit_direction == DoorExitDirection.DOWN]
+                                     ap.eject_direction == DoorEjectDirection.DOWN]
             else:
                 remaining_new_aps = [ap for ap in new_placeholder.available_door_attach_points if
-                                     ap.exit_direction == DoorExitDirection.UP]
+                                     ap.eject_direction == DoorEjectDirection.UP]
             while len(remaining_new_aps) > 0:
                 new_ap = random.choice(remaining_new_aps)
-                if existing_ap.exit_direction == DoorExitDirection.RIGHT:
+                if existing_ap.eject_direction == DoorEjectDirection.RIGHT:
                     new_ap_coords = (existing_ap_coords[0] - 1, existing_ap_coords[1])
-                elif existing_ap.exit_direction == DoorExitDirection.LEFT:
+                elif existing_ap.eject_direction == DoorEjectDirection.LEFT:
                     new_ap_coords = (existing_ap_coords[0] + 1, existing_ap_coords[1])
-                elif existing_ap.exit_direction == DoorExitDirection.UP:
+                elif existing_ap.eject_direction == DoorEjectDirection.UP:
                     new_ap_coords = (existing_ap_coords[0], existing_ap_coords[1] + 1)
                 else:
                     new_ap_coords = (existing_ap_coords[0], existing_ap_coords[1] - 1)

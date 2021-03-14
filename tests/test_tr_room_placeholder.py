@@ -3,7 +3,7 @@ import unittest
 from testing_common import tile_rando
 
 from tile_rando import tr_room_placeholder, tr_door_attach_point
-from tekton.tekton_door import DoorExitDirection
+from tekton.tekton_door import DoorEjectDirection
 
 class TestTRRoomPlaceholder(unittest.TestCase):
     def test_init(self):
@@ -30,7 +30,7 @@ class TestTRRoomPlaceholder(unittest.TestCase):
         self.assertEqual(expected_results, actual_results, "TRRoomPlaceholder did not return correct available_door_attach_points!")
 
         test_ph = tr_room_placeholder.TRRoomPlaceholder(9, 5)
-        test_ph.screens[0][4].append(tr_door_attach_point.TRDoorAttachPoint(0, 4, DoorExitDirection.RIGHT))
+        test_ph.screens[0][4].append(tr_door_attach_point.TRDoorAttachPoint(0, 4, DoorEjectDirection.RIGHT))
         actual_results = test_ph.available_door_attach_points
         print(actual_results)
         self.assertTrue(isinstance(actual_results[0], tr_door_attach_point.TRDoorAttachPoint),

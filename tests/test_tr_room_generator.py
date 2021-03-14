@@ -2,7 +2,7 @@ import os
 import unittest
 from testing_common import tile_rando
 
-from tekton.tekton_door import DoorExitDirection
+from tekton.tekton_door import DoorEjectDirection
 from tile_rando import tr_room_generator, tr_door_attach_point
 
 class TestTRRoomGenerator(unittest.TestCase):
@@ -24,10 +24,10 @@ class TestTRSimpleBoxRoomGenerator(unittest.TestCase):
         test_gen = tr_room_generator.TRSimpleBoxRoomGenerator()
         test_gen._width = 1
         test_gen._height = 1
-        expected_result = [[[tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorExitDirection.DOWN),
-                           tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorExitDirection.UP),
-                           tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorExitDirection.RIGHT),
-                           tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorExitDirection.LEFT)]]]
+        expected_result = [[[tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorEjectDirection.DOWN),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorEjectDirection.UP),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorEjectDirection.RIGHT),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorEjectDirection.LEFT)]]]
         actual_result = test_gen.generate_door_attach_points()
         for row in range(len(expected_result)):
             for col in range(len(expected_result[row])):
@@ -38,21 +38,21 @@ class TestTRSimpleBoxRoomGenerator(unittest.TestCase):
                     self.assertEqual(expected_result[col][row][i].v_screen,
                                      actual_result[col][row][i].v_screen,
                                      "TRSimpleBoxRoomGenerator returned wrong v_screen for attach point {}!".format(i))
-                    self.assertEqual(expected_result[col][row][i].exit_direction,
-                                     actual_result[col][row][i].exit_direction,
-                                     "TRSimpleBoxRoomGenerator returned wrong door exit direction for attach point {}!".format(i))
+                    self.assertEqual(expected_result[col][row][i].eject_direction,
+                                     actual_result[col][row][i].eject_direction,
+                                     "TRSimpleBoxRoomGenerator returned wrong door eject direction for attach point {}!".format(i))
 
         test_gen = tr_room_generator.TRSimpleBoxRoomGenerator()
         test_gen._width = 2
         test_gen._height = 2
-        expected_result = [[[tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorExitDirection.DOWN),
-                           tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorExitDirection.RIGHT)],
-                           [tr_door_attach_point.TRDoorAttachPoint(0, 1, DoorExitDirection.UP),
-                           tr_door_attach_point.TRDoorAttachPoint(0, 1, DoorExitDirection.RIGHT)]],
-                           [[tr_door_attach_point.TRDoorAttachPoint(1, 0, DoorExitDirection.DOWN),
-                           tr_door_attach_point.TRDoorAttachPoint(1, 0, DoorExitDirection.LEFT)],
-                           [tr_door_attach_point.TRDoorAttachPoint(1, 1, DoorExitDirection.UP),
-                           tr_door_attach_point.TRDoorAttachPoint(1, 1, DoorExitDirection.LEFT)]]]
+        expected_result = [[[tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorEjectDirection.DOWN),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorEjectDirection.RIGHT)],
+                           [tr_door_attach_point.TRDoorAttachPoint(0, 1, DoorEjectDirection.UP),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 1, DoorEjectDirection.RIGHT)]],
+                           [[tr_door_attach_point.TRDoorAttachPoint(1, 0, DoorEjectDirection.DOWN),
+                           tr_door_attach_point.TRDoorAttachPoint(1, 0, DoorEjectDirection.LEFT)],
+                           [tr_door_attach_point.TRDoorAttachPoint(1, 1, DoorEjectDirection.UP),
+                           tr_door_attach_point.TRDoorAttachPoint(1, 1, DoorEjectDirection.LEFT)]]]
         actual_result = test_gen.generate_door_attach_points()
         print(actual_result)
         for row in range(len(expected_result)):
@@ -64,26 +64,26 @@ class TestTRSimpleBoxRoomGenerator(unittest.TestCase):
                     self.assertEqual(expected_result[col][row][i].v_screen,
                                      actual_result[col][row][i].v_screen,
                                      "TRSimpleBoxRoomGenerator returned wrong v_screen for attach point [{}, {}][{}]!".format(col, row, i))
-                    self.assertEqual(expected_result[col][row][i].exit_direction,
-                                     actual_result[col][row][i].exit_direction,
-                                     "TRSimpleBoxRoomGenerator returned wrong door exit direction for attach point [{}, {}][{}]!".format(col, row, i))
+                    self.assertEqual(expected_result[col][row][i].eject_direction,
+                                     actual_result[col][row][i].eject_direction,
+                                     "TRSimpleBoxRoomGenerator returned wrong door eject direction for attach point [{}, {}][{}]!".format(col, row, i))
 
         test_gen = tr_room_generator.TRSimpleBoxRoomGenerator()
         test_gen._width = 3
         test_gen._height = 3
-        expected_result = [[[tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorExitDirection.DOWN),
-                           tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorExitDirection.RIGHT)],
-                           [tr_door_attach_point.TRDoorAttachPoint(0, 1, DoorExitDirection.RIGHT)],
-                           [tr_door_attach_point.TRDoorAttachPoint(0, 2, DoorExitDirection.UP),
-                           tr_door_attach_point.TRDoorAttachPoint(0, 2, DoorExitDirection.RIGHT)]],
-                           [[tr_door_attach_point.TRDoorAttachPoint(1, 0, DoorExitDirection.DOWN)],
+        expected_result = [[[tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorEjectDirection.DOWN),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 0, DoorEjectDirection.RIGHT)],
+                           [tr_door_attach_point.TRDoorAttachPoint(0, 1, DoorEjectDirection.RIGHT)],
+                           [tr_door_attach_point.TRDoorAttachPoint(0, 2, DoorEjectDirection.UP),
+                           tr_door_attach_point.TRDoorAttachPoint(0, 2, DoorEjectDirection.RIGHT)]],
+                           [[tr_door_attach_point.TRDoorAttachPoint(1, 0, DoorEjectDirection.DOWN)],
                            [],
-                           [tr_door_attach_point.TRDoorAttachPoint(1, 2, DoorExitDirection.UP)]],
-                           [[tr_door_attach_point.TRDoorAttachPoint(2, 0, DoorExitDirection.DOWN),
-                           tr_door_attach_point.TRDoorAttachPoint(2, 0, DoorExitDirection.LEFT)],
-                           [tr_door_attach_point.TRDoorAttachPoint(2, 1, DoorExitDirection.LEFT)],
-                           [tr_door_attach_point.TRDoorAttachPoint(2, 2, DoorExitDirection.UP),
-                           tr_door_attach_point.TRDoorAttachPoint(2, 2, DoorExitDirection.LEFT)]]]
+                           [tr_door_attach_point.TRDoorAttachPoint(1, 2, DoorEjectDirection.UP)]],
+                           [[tr_door_attach_point.TRDoorAttachPoint(2, 0, DoorEjectDirection.DOWN),
+                           tr_door_attach_point.TRDoorAttachPoint(2, 0, DoorEjectDirection.LEFT)],
+                           [tr_door_attach_point.TRDoorAttachPoint(2, 1, DoorEjectDirection.LEFT)],
+                           [tr_door_attach_point.TRDoorAttachPoint(2, 2, DoorEjectDirection.UP),
+                           tr_door_attach_point.TRDoorAttachPoint(2, 2, DoorEjectDirection.LEFT)]]]
         actual_result = test_gen.generate_door_attach_points()
         self.assertEqual(len(expected_result),
                          len(actual_result),
@@ -97,7 +97,7 @@ class TestTRSimpleBoxRoomGenerator(unittest.TestCase):
                     self.assertEqual(expected_result[col][row][i].v_screen,
                                      actual_result[col][row][i].v_screen,
                                      "TRSimpleBoxRoomGenerator returned wrong v_screen for attach point {}!".format(i))
-                    self.assertEqual(expected_result[col][row][i].exit_direction,
-                                     actual_result[col][row][i].exit_direction,
-                                     "TRSimpleBoxRoomGenerator returned wrong door exit direction for attach point {}!".format(
+                    self.assertEqual(expected_result[col][row][i].eject_direction,
+                                     actual_result[col][row][i].eject_direction,
+                                     "TRSimpleBoxRoomGenerator returned wrong door eject direction for attach point {}!".format(
                                          i))

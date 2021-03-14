@@ -1,8 +1,8 @@
 class TRDoorAttachPoint:
-    def __init__(self, new_h_screen=0, new_v_screen=0, new_exit_direction=None):
+    def __init__(self, new_h_screen=0, new_v_screen=0, new_eject_direction=None):
         self.h_screen = new_h_screen
         self.v_screen = new_v_screen
-        self.exit_direction = new_exit_direction
+        self.eject_direction = new_eject_direction
         self.farside_room = None
         self.farside_door = None
 
