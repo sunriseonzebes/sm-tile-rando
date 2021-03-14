@@ -20,19 +20,19 @@ class TRRoomGenerator:
 class TRSimpleBoxRoomGenerator(TRRoomGenerator):
     def __init__(self):
         super(TRSimpleBoxRoomGenerator, self).__init__()
-        self._width = 1
-        self._height = 1
+        self._width = None
+        self._height = None
         self._num_doors = 0
 
     def generate_room_width(self):
         self._width = random.randint(1, 5)
-        if self._width > 2 and self._height > 2:
+        if self._height is not None and self._width > 2 and self._height > 2:
             self._width = random.randint(1, 5)  # Re-roll on large square rooms to make them less likely.
         return self._width
 
     def generate_room_height(self):
         self._height = random.randint(1, 5)
-        if self._width > 2 and self._height > 2:
+        if self._width is not None and self._width > 2 and self._height > 2:
             self._height = random.randint(1, 5)  # Re-roll on large square rooms to make them less likely.
         return self._height
 
@@ -41,6 +41,10 @@ class TRSimpleBoxRoomGenerator(TRRoomGenerator):
         return self._num_doors
 
     def generate_door_attach_points(self):
+        if self._width is None:
+            self.generate_room_width()
+        if self._height is None:
+            self.generate_room_height()
         attach_points = [[[] for row in range(self._height)] for col in range(self._width)]
         for col in range(self._width):
             for row in range(self._height):
