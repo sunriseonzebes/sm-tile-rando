@@ -12,7 +12,6 @@ class TRAreaCreator:
     def generate_map_grid(self):
         if not 0x791f8 in self.source_rooms.keys():
             raise RequiredRoomMissingError("0x791f8 is a required room.")
-
         return_grid = TRMapGrid(35, 20)
         landing_site_coords = self._get_landing_site_coords(return_grid.width, return_grid.height)
 
@@ -21,14 +20,17 @@ class TRAreaCreator:
                                          landing_site_coords[0],
                                          landing_site_coords[1])
 
-        for i in range(8):
-            new_placeholder = self._create_room_placeholder()
+        for i in range(5):
+
+            new_placeholder = self._create_room_placeholder(return_grid.rooms)
             remaining_existing_placeholders = return_grid.rooms.copy()
             while len(remaining_existing_placeholders) > 0:
                 existing_placeholder = random.choice(remaining_existing_placeholders)
-                new_placeholder_coords = return_grid.find_room_attach_coords(existing_placeholder, new_placeholder)
+                new_placeholder_coords, existing_ap, new_ap = return_grid.find_room_attach_coords(existing_placeholder, new_placeholder)
                 if new_placeholder_coords is not None:
                     return_grid.add_room_placeholder(new_placeholder, new_placeholder_coords[0], new_placeholder_coords[1])
+                    existing_ap.attach(new_placeholder, new_ap)
+                    new_ap.attach(existing_placeholder, existing_ap)
                     break
                 remaining_existing_placeholders.remove(existing_placeholder)
                 print("Could not find anywhere to put placeholder!")
@@ -53,9 +55,10 @@ class TRAreaCreator:
 
         return placeholder
 
-    def _create_room_placeholder(self):
+    def _create_room_placeholder(self, used_rooms):
         placeholder = TRRoomPlaceholder()
         placeholder.room_generator = TRSimpleBoxRoomGenerator()
+        placeholder.tekton_room = random.choice([tekton_room for header, tekton_room in self.source_rooms.items() if tekton_room not in used_rooms])
         placeholder.generate_room_attributes()
 
         return placeholder

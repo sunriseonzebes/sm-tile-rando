@@ -83,11 +83,11 @@ class TRMapGrid:
                 elif self.room_placement_overlaps_existing_room(new_placeholder, proposed_room_coord[0], proposed_room_coord[1]):
                     print("Room overlaps existing room!")
                 else:
-                    return proposed_room_coord
+                    return proposed_room_coord, existing_ap, new_ap
                 remaining_new_aps.remove(new_ap)
             remaining_existing_aps.remove(existing_ap)
 
-        return None
+        return None, None, None
 
     def room_placement_overlaps_existing_room(self, proposed_room, proposed_top_row, proposed_left_col):
         proposed_x_coords = [*range(proposed_top_row, proposed_top_row + proposed_room.width)]

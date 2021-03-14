@@ -3,6 +3,7 @@ import unittest
 from testing_common import tile_rando
 
 from tekton.tekton_door import DoorEjectDirection
+from tekton.tekton_tile_grid import TektonTileGrid
 from tile_rando import tr_room_generator, tr_door_attach_point
 
 class TestTRRoomGenerator(unittest.TestCase):
@@ -102,3 +103,16 @@ class TestTRSimpleBoxRoomGenerator(unittest.TestCase):
                                      "TRSimpleBoxRoomGenerator returned wrong door eject direction for attach point {}!".format(
                                          i))
 
+    def test_generate_room_tiles(self):
+        test_gen = tr_room_generator.TRSimpleBoxRoomGenerator()
+        test_gen._width = 1
+        test_gen._height = 1
+        test_screens = [[[]]]
+
+        actual_results = test_gen.generate_room_tiles(test_screens)
+        self.assertTrue(isinstance(actual_results, TektonTileGrid),
+                        msg="generate_room_tiles did not return the correct object!")
+        for row in range(len(actual_results)):
+            for col in range(len(actual_results[row])):
+                self.assertIsNotNone(actual_results[col][row],
+                                     msg="generate_room_tiles returned None at grid position {}, {}!".format(col, row))

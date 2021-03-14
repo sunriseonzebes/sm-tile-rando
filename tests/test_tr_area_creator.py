@@ -2,8 +2,8 @@ import os
 import unittest
 from testing_common import tile_rando, original_rom_path, load_test_data_dir
 
-from tile_rando import tr_area_creator, tr_map_grid, tr_room_placeholder
-from tekton import tekton_room_dict, tekton_room
+from tile_rando import tr_area_creator, tr_map_grid, tr_room_placeholder, tr_door_attach_point
+from tekton import tekton_room_dict, tekton_room, tekton_tile_grid
 
 
 class TestTRAreaCreator(unittest.TestCase):
@@ -24,6 +24,7 @@ class TestTRAreaCreator(unittest.TestCase):
         test_dict = tekton_room_dict.TektonRoomDict()
         test_room = tekton_room.TektonRoom(9, 5)
         test_room.header = 0x791f8
+        test_room.tiles = tekton_tile_grid.TektonTileGrid(9*16, 5*16)
         test_dict.add_room(test_room)
 
         test_creator = tr_area_creator.TRAreaCreator()
@@ -44,6 +45,18 @@ class TestTRAreaCreator(unittest.TestCase):
 
         self.assertNotEqual([None, None], room_coords, "Landing Site not found in MapGrid!")
         self._verify_room_placeholder_placement(room_coords, actual_result)
+
+        for room in actual_result.rooms:
+            for col in range(len(room.screens)):
+                for row in range(len(room.screens[col])):
+                    for item in room.screens[col][row]:
+                        if isinstance(item, tr_door_attach_point.TRDoorAttachPoint) and item.is_attached:
+                            self.assertEqual(item,
+                                             item.farside_door.farside_door,
+                                             "Door attachment not reciprocal!")
+                            self.assertEqual(room,
+                                             item.farside_door.farside_room,
+                                             "Door room attachment not reciprocal!")
 
     def _verify_room_placeholder_placement(self, room_coords, map_grid):
         room_placeholder = map_grid[room_coords[0]][room_coords[1]]
