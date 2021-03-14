@@ -107,5 +107,14 @@ class TestTRMapGrid(unittest.TestCase):
         self.assertFalse(actual_result, msg="room_placement_in_bounds returned the incorrect result!")
 
 
+    def test_get_room_top_left_coords(self):
+        test_grid = tr_map_grid.TRMapGrid(16, 16)
+        new_room_ph = tr_room_placeholder.TRRoomPlaceholder(3, 3)
+        test_grid.add_room_placeholder(new_room_ph, 5, 2)
+        expected_result = 5, 2
+        actual_result = test_grid.get_room_top_left_coords(new_room_ph)
+        self.assertEqual(expected_result, actual_result, "get_room_top_left_coords did not return correct result!")
+
+
 
 

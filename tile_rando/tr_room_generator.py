@@ -26,10 +26,14 @@ class TRSimpleBoxRoomGenerator(TRRoomGenerator):
 
     def generate_room_width(self):
         self._width = random.randint(1, 5)
+        if self._width > 2 and self._height > 2:
+            self._width = random.randint(1, 5)  # Re-roll on large square rooms to make them less likely.
         return self._width
 
     def generate_room_height(self):
         self._height = random.randint(1, 5)
+        if self._width > 2 and self._height > 2:
+            self._height = random.randint(1, 5)  # Re-roll on large square rooms to make them less likely.
         return self._height
 
     def generate_num_doors(self):
@@ -37,17 +41,17 @@ class TRSimpleBoxRoomGenerator(TRRoomGenerator):
         return self._num_doors
 
     def generate_door_attach_points(self):
-        attach_points = []
+        attach_points = [[[] for row in range(self._height)] for col in range(self._width)]
         for col in range(self._width):
             for row in range(self._height):
                 if row in [0, self._height - 1] or col in [0, self._width - 1]:
                     if row == 0:
-                        attach_points.append(TRDoorAttachPoint(col, row, DoorExitDirection.DOWN))
+                        attach_points[col][row].append(TRDoorAttachPoint(col, row, DoorExitDirection.DOWN))
                     if row == self._height - 1:
-                        attach_points.append(TRDoorAttachPoint(col, row, DoorExitDirection.UP))
+                        attach_points[col][row].append(TRDoorAttachPoint(col, row, DoorExitDirection.UP))
                     if col == 0:
-                        attach_points.append(TRDoorAttachPoint(col, row, DoorExitDirection.RIGHT))
+                        attach_points[col][row].append(TRDoorAttachPoint(col, row, DoorExitDirection.RIGHT))
                     if col == self._width - 1:
-                        attach_points.append(TRDoorAttachPoint(col, row, DoorExitDirection.LEFT))
+                        attach_points[col][row].append(TRDoorAttachPoint(col, row, DoorExitDirection.LEFT))
 
         return attach_points

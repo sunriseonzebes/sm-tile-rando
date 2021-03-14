@@ -21,9 +21,21 @@ class TRAreaCreator:
                                          landing_site_coords[0],
                                          landing_site_coords[1])
 
-        #for i in range(1):
+        for i in range(8):
+            new_placeholder = self._create_room_placeholder()
+            remaining_existing_placeholders = return_grid.rooms.copy()
+            while len(remaining_existing_placeholders) > 0:
+                existing_placeholder = random.choice(remaining_existing_placeholders)
+                new_placeholder_coords = return_grid.find_room_attach_coords(existing_placeholder, new_placeholder)
+                if new_placeholder_coords is not None:
+                    return_grid.add_room_placeholder(new_placeholder, new_placeholder_coords[0], new_placeholder_coords[1])
+                    break
+                remaining_existing_placeholders.remove(existing_placeholder)
+                print("Could not find anywhere to put placeholder!")
 
 
+
+        print(return_grid)
         return return_grid
 
     def _get_landing_site_coords(self, grid_width, grid_height):
@@ -37,25 +49,16 @@ class TRAreaCreator:
     def _create_landing_site_placeholder(self, landing_site_tekton_room):
         placeholder = TRRoomPlaceholder(9, 5)
         placeholder.tekton_room = landing_site_tekton_room
-        placeholder.screens[0][4] = TRDoorAttachPoint(0, 4, DoorExitDirection.RIGHT)  # Door to Parlor
+        placeholder.screens[0][4].append(TRDoorAttachPoint(0, 4, DoorExitDirection.RIGHT))  # Door to Parlor
 
         return placeholder
 
     def _create_room_placeholder(self):
         placeholder = TRRoomPlaceholder()
         placeholder.room_generator = TRSimpleBoxRoomGenerator()
-        placeholder.width = placeholder.room_generator.generate_room_width()
-        placeholder.width = placeholder.room_generator.generate_room_height()
-        placeholder.available_door_attach_points = placeholder.room_generator.generate_door_attach_points()
+        placeholder.generate_room_attributes()
 
         return placeholder
-
-    # def _find_legal_attach_point(self, existing_placeholder, new_placeholder):
-    #     existing_remaining_ap = existing_placeholder.available_door_attach_points
-    #
-    #     while len(existing_remaining_ap) > 0:
-    #         new_remaining_ap = new_placeholder.available_door_attach_points
-    #         while len(new_remaining_ap) > 0:
 
 
 
