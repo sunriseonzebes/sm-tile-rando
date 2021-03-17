@@ -114,6 +114,10 @@ class TRMapGrid:
                     return col, row
         return None
 
+    def generate_rooms_tiles(self):
+        for room in self.rooms:
+            room.generate_room_tiles()
+
 
 class RoomExceedsGridBoundariesError(Exception):
     """Exception raised when adding a room that goes past the boundaries of the TRMapGrid."""

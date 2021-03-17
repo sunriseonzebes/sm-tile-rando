@@ -1,0 +1,6 @@
+source_rooms:
+  - header: 0x791f8
+    name: "Landing Site"
+    write_level_data: !!bool 'false'
+    width: 9
+    height: 5

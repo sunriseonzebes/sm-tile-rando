@@ -29,4 +29,7 @@ class TRRoomPlaceholder:
         for col in range(len(door_attach_points)):
             for row in range(len(door_attach_points[col])):
                 self.screens[col][row] += door_attach_points[col][row]
-        self.tekton_room.tiles = self.room_generator.generate_room_tiles(self.screens)
+
+    def generate_room_tiles(self):
+        if self.tekton_room.write_level_data is True:
+            self.tekton_room.tiles = self.room_generator.generate_room_tiles(self.screens)
