@@ -2,7 +2,7 @@ import os
 import unittest
 from testing_common import tile_rando, original_rom_path, load_test_data_dir
 
-from tile_rando import tr_area_creator, tr_map_grid, tr_room_placeholder, tr_door_attach_point
+from tile_rando import tr_area_creator, tr_map_grid, tr_room_placeholder, tr_door_attach_point, tr_room_generator
 from tekton import tekton_room_dict, tekton_room, tekton_tile_grid
 
 
@@ -48,6 +48,11 @@ class TestTRAreaCreator(unittest.TestCase):
                                 self.assertEqual(room,
                                                  item.farside_door.farside_room,
                                                  "Door room attachment not reciprocal!")
+
+            for room in actual_result.rooms:
+                self.assertIsNotNone(room.room_generator, msg="Room has no Room Generator!")
+                self.assertTrue(isinstance(room.room_generator, tr_room_generator.TRRoomGenerator),
+                                msg="Room Generator does not inherit from TRRoomGenerator!")
 
 
         test_creator = tr_area_creator.TRAreaCreator()

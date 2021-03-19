@@ -12,6 +12,12 @@ class TestTRRoomGenerator(unittest.TestCase):
         self.assertTrue(isinstance(test_gen, tr_room_generator.TRRoomGenerator),
                         msg="TRRoomGenerator did not initialize correctly!")
 
+class TestTRLandingSiteRoomGenerator(unittest.TestCase):
+    def test_init(self):
+        test_gen = tr_room_generator.TRLandingSiteRoomGenerator()
+        self.assertTrue(isinstance(test_gen, tr_room_generator.TRLandingSiteRoomGenerator),
+                        msg="TRLandingSiteRoomGenerator did not initialize correctly!")
+
 class TestTRSimpleBoxRoomGenerator(unittest.TestCase):
     def test_init(self):
         test_gen = tr_room_generator.TRSimpleBoxRoomGenerator()
@@ -19,7 +25,6 @@ class TestTRSimpleBoxRoomGenerator(unittest.TestCase):
                         msg="TRSimpleBoxRoomGenerator did not initialize correctly!")
         self.assertIsNone(test_gen._width, "TRSimpleBoxRoomGenerator did not initialize correctly!")
         self.assertIsNone(test_gen._height, "TRSimpleBoxRoomGenerator did not initialize correctly!")
-        self.assertEqual(0, test_gen._num_doors, "TRSimpleBoxRoomGenerator did not initialize correctly!")
 
     def test_generate_door_attach_points(self):
         test_gen = tr_room_generator.TRSimpleBoxRoomGenerator()
