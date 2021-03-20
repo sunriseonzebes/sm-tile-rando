@@ -21,6 +21,19 @@ class TRRoomPlaceholder:
 
         return available_attach_points
 
+    @property
+    def attached_door_attach_points(self):
+        attached_attach_points = []
+        for row in range(self.height):
+            for col in range(self.width):
+                for attach_point in self.screens[col][row]:
+                    if not isinstance(attach_point, TRDoorAttachPoint):
+                        continue
+                    if attach_point.is_attached:
+                        attached_attach_points.append(attach_point)
+
+        return attached_attach_points
+
     def generate_room_attributes(self):
         self.width = self.room_generator.generate_room_width()
         self.height = self.room_generator.generate_room_height()

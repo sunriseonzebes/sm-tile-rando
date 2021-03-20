@@ -63,4 +63,3 @@ class TestTRDoorGenerator(unittest.TestCase):
         self.assertEqual(test_door_ap.eject_direction,
                          actual_result.eject_direction,
                          msg="TektonDoor has incorrect eject_direction!")
-        
