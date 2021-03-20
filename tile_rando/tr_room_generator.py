@@ -4,6 +4,7 @@ from tekton.tekton_door import DoorEjectDirection
 from tekton.tekton_tile import TektonTile
 from tekton.tekton_tile_grid import TektonTileGrid
 from .tr_door_attach_point import TRDoorAttachPoint
+from .tr_door_generator import create_classic_door_tile_grid
 
 class TRRoomGenerator:
     def __init__(self):
@@ -18,7 +19,7 @@ class TRRoomGenerator:
     def generate_door_attach_points(self):
         pass
 
-    def generate_room_tiles(self, screen_info):
+    def generate_room_tiles(self, attached_doors):
         pass
 
 
@@ -46,7 +47,7 @@ class TRLandingSiteRoomGenerator(TRRoomGenerator):
 
         return attach_points
 
-    def generate_room_tiles(self, screen_info):
+    def generate_room_tiles(self, attached_doors):
         return None
 
 
@@ -88,7 +89,7 @@ class TRSimpleBoxRoomGenerator(TRRoomGenerator):
 
         return attach_points
 
-    def generate_room_tiles(self, screen_info):
+    def generate_room_tiles(self, attached_doors):
         if self._width is None:
             self.generate_room_width()
         if self._height is None:
@@ -119,12 +120,33 @@ class TRSimpleBoxRoomGenerator(TRRoomGenerator):
             for y in range(new_tiles.height - 3, new_tiles.height):
                 new_tiles[x][y] = block_tile.copy()
 
-        # for col in range(len(screen_info)):
-        #     for row in range(len(screen_info[row])):
-        #         for item in screen_info[col][row]:
-        #             if isinstance(item, TRDoorAttachPoint):
-        #                 if not item.is_attached:
-        #                     continue
-        #
+        print(attached_doors)
+        for i in range(len(attached_doors)):
+            new_door_grid = create_classic_door_tile_grid(attached_doors[i].eject_direction, i)
+            new_door_x_coord = attached_doors[i].h_screen * 16
+            new_door_y_coord = attached_doors[i].v_screen * 16
+            if attached_doors[i].eject_direction == DoorEjectDirection.LEFT:
+                new_door_x_coord += 14
+                new_door_y_coord += 6
+                for j in range(new_door_y_coord, new_door_y_coord + 4):
+                    new_tiles[new_door_x_coord-1][j].tileno = 0x80
+                    new_tiles[new_door_x_coord-1][j].bts_type = 0x00
+            if attached_doors[i].eject_direction == DoorEjectDirection.RIGHT:
+                new_door_y_coord += 6
+                for j in range(new_door_y_coord, new_door_y_coord + 4):
+                    new_tiles[new_door_x_coord+2][j].tileno = 0x80
+                    new_tiles[new_door_x_coord+2][j].bts_type = 0x00
+            if attached_doors[i].eject_direction == DoorEjectDirection.UP:
+                new_door_x_coord += 6
+                new_door_y_coord += 14
+                for j in range(new_door_x_coord, new_door_x_coord + 4):
+                    new_tiles[j][new_door_y_coord-1].tileno = 0x80
+                    new_tiles[j][new_door_y_coord-1].bts_type = 0x00
+            if attached_doors[i].eject_direction == DoorEjectDirection.DOWN:
+                new_door_x_coord += 6
+                for j in range(new_door_x_coord, new_door_x_coord + 4):
+                    new_tiles[j][new_door_y_coord+2].tileno = 0x80
+                    new_tiles[j][new_door_y_coord+2].bts_type = 0x00
+            new_tiles.overwrite_with(new_door_grid, new_door_x_coord, new_door_y_coord)
 
         return new_tiles

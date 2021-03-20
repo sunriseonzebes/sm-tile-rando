@@ -112,9 +112,9 @@ class TestTRSimpleBoxRoomGenerator(unittest.TestCase):
         test_gen = tr_room_generator.TRSimpleBoxRoomGenerator()
         test_gen._width = 1
         test_gen._height = 1
-        test_screens = [[[]]]
+        test_attached_doors = []
 
-        actual_results = test_gen.generate_room_tiles(test_screens)
+        actual_results = test_gen.generate_room_tiles(test_attached_doors)
         self.assertTrue(isinstance(actual_results, TektonTileGrid),
                         msg="generate_room_tiles did not return the correct object!")
         for row in range(len(actual_results)):
