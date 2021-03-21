@@ -15,22 +15,22 @@ vertical_door_shield_inner_tileno = 0x01c
 
 def create_classic_door_tile_grid(new_door_eject_direction, new_door_id, door_has_shield=True):
     new_door = None
-    if new_door_eject_direction == DoorEjectDirection.RIGHT or new_door_eject_direction == DoorEjectDirection.RIGHT_NO_DOOR_CLOSE:
+    if new_door_eject_direction == DoorEjectDirection.LEFT or new_door_eject_direction == DoorEjectDirection.LEFT_NO_DOOR_CLOSE:
         new_door = TektonTileGrid(2, 4)
         new_door.overwrite_with(_create_door_collar(new_door_eject_direction, new_door_id), 0, 0)
         if door_has_shield:
             new_door.overwrite_with(_create_door_shield(new_door_eject_direction), 1, 0)
-    if new_door_eject_direction == DoorEjectDirection.LEFT or new_door_eject_direction == DoorEjectDirection.LEFT_NO_DOOR_CLOSE:
+    if new_door_eject_direction == DoorEjectDirection.RIGHT or new_door_eject_direction == DoorEjectDirection.RIGHT_NO_DOOR_CLOSE:
         new_door = TektonTileGrid(2, 4)
         new_door.overwrite_with(_create_door_collar(new_door_eject_direction, new_door_id), 1, 0)
         if door_has_shield:
             new_door.overwrite_with(_create_door_shield(new_door_eject_direction), 0, 0)
-    if new_door_eject_direction == DoorEjectDirection.UP or new_door_eject_direction == DoorEjectDirection.UP_NO_DOOR_CLOSE:
+    if new_door_eject_direction == DoorEjectDirection.DOWN or new_door_eject_direction == DoorEjectDirection.DOWN_NO_DOOR_CLOSE:
         new_door = TektonTileGrid(4, 2)
         new_door.overwrite_with(_create_door_collar(new_door_eject_direction, new_door_id), 0, 1)
         if door_has_shield:
             new_door.overwrite_with(_create_door_shield(new_door_eject_direction), 0, 0)
-    if new_door_eject_direction == DoorEjectDirection.DOWN or new_door_eject_direction == DoorEjectDirection.DOWN_NO_DOOR_CLOSE:
+    if new_door_eject_direction == DoorEjectDirection.UP or new_door_eject_direction == DoorEjectDirection.UP_NO_DOOR_CLOSE:
         new_door = TektonTileGrid(4, 2)
         new_door.overwrite_with(_create_door_collar(new_door_eject_direction, new_door_id), 0, 0)
         if door_has_shield:
@@ -88,7 +88,7 @@ def _create_door_collar(new_door_eject_direction, new_door_id):
             new_door_collar[0][i].bts_type = 0x09
             new_door_collar[0][i].bts_num = new_door_id
 
-        if new_door_eject_direction == DoorEjectDirection.RIGHT or new_door_eject_direction == DoorEjectDirection.RIGHT_NO_DOOR_CLOSE:
+        if new_door_eject_direction == DoorEjectDirection.LEFT or new_door_eject_direction == DoorEjectDirection.LEFT_NO_DOOR_CLOSE:
             for i in range(4):
                 new_door_collar[0][i].h_mirror = True
 
@@ -112,7 +112,7 @@ def _create_door_collar(new_door_eject_direction, new_door_id):
             new_door_collar[i][0].bts_type = 0x09
             new_door_collar[i][0].bts_num = new_door_id
 
-        if new_door_eject_direction == DoorEjectDirection.DOWN or new_door_eject_direction == DoorEjectDirection.DOWN_NO_DOOR_CLOSE:
+        if new_door_eject_direction == DoorEjectDirection.UP or new_door_eject_direction == DoorEjectDirection.UP_NO_DOOR_CLOSE:
             for i in range(4):
                 new_door_collar[i][0].v_mirror = True
 
@@ -138,11 +138,11 @@ def _create_door_shield(new_door_eject_direction):
         for i in range(1, 4):
             new_door_shield[0][i].bts_type = 0x0d
 
-        if new_door_eject_direction == DoorEjectDirection.RIGHT:
+        if new_door_eject_direction == DoorEjectDirection.LEFT:
             for i in range(4):
                 new_door_shield[0][i].h_mirror = True
 
-        if new_door_eject_direction == DoorEjectDirection.LEFT:
+        if new_door_eject_direction == DoorEjectDirection.RIGHT:
             new_door_shield[0][0].bts_num = 0x40
         else:
             new_door_shield[0][0].bts_num = 0x41
@@ -167,11 +167,11 @@ def _create_door_shield(new_door_eject_direction):
         for i in range(1, 4):
             new_door_shield[i][0].bts_type = 0x0d
 
-        if new_door_eject_direction == DoorEjectDirection.DOWN:
+        if new_door_eject_direction == DoorEjectDirection.UP:
             for i in range(4):
                 new_door_shield[i][0].v_mirror = True
 
-        if new_door_eject_direction == DoorEjectDirection.DOWN:
+        if new_door_eject_direction == DoorEjectDirection.UP:
             new_door_shield[0][0].bts_num = 0x43
         else:
             new_door_shield[0][0].bts_num = 0x42
@@ -188,8 +188,8 @@ def _standard_spawn_distance(door_eject_direction):
             door_eject_direction == DoorEjectDirection.RIGHT or \
             door_eject_direction == DoorEjectDirection.RIGHT_NO_DOOR_CLOSE:
         return 0x8000
-    elif door_eject_direction == DoorEjectDirection.UP or \
-            door_eject_direction == DoorEjectDirection.UP_NO_DOOR_CLOSE:
+    elif door_eject_direction == DoorEjectDirection.DOWN or \
+            door_eject_direction == DoorEjectDirection.DOWN_NO_DOOR_CLOSE:
         return 0x0140
     else:
         return 0x01c0

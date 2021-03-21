@@ -39,6 +39,8 @@ class TRRoomPlaceholder:
         self.width = self.room_generator.generate_room_width()
         self.height = self.room_generator.generate_room_height()
         self.screens = [[[] for row in range(self.height)] for col in range(self.width)]
+        self.tekton_room.width_screens = self.width
+        self.tekton_room.height_screens = self.height
         door_attach_points = self.room_generator.generate_door_attach_points()
         for col in range(len(door_attach_points)):
             for row in range(len(door_attach_points[col])):
@@ -48,6 +50,7 @@ class TRRoomPlaceholder:
         new_tiles = self.room_generator.generate_room_tiles(self.attached_door_attach_points)
         if new_tiles is not None:
             self.tekton_room.tiles = new_tiles
+            print(new_tiles)
 
     def generate_tekton_doors(self):
         attached_doors = self.attached_door_attach_points

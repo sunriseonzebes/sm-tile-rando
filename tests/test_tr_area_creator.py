@@ -46,6 +46,22 @@ class TestTRAreaCreator(unittest.TestCase):
                         self.assertEqual(room,
                                          item.farside_door.farside_room,
                                          "Door room attachment not reciprocal!")
+                        if item.eject_direction == tekton_door.DoorEjectDirection.RIGHT:
+                            self.assertEqual(tekton_door.DoorEjectDirection.LEFT,
+                                             item.farside_door.eject_direction,
+                                             msg="Doors do not have reciprocal DoorEjectDirections!")
+                        if item.eject_direction == tekton_door.DoorEjectDirection.LEFT:
+                            self.assertEqual(tekton_door.DoorEjectDirection.RIGHT,
+                                             item.farside_door.eject_direction,
+                                             msg="Doors do not have reciprocal DoorEjectDirections!")
+                        if item.eject_direction == tekton_door.DoorEjectDirection.DOWN:
+                            self.assertEqual(tekton_door.DoorEjectDirection.UP,
+                                             item.farside_door.eject_direction,
+                                             msg="Doors do not have reciprocal DoorEjectDirections!")
+                        if item.eject_direction == tekton_door.DoorEjectDirection.UP:
+                            self.assertEqual(tekton_door.DoorEjectDirection.DOWN,
+                                             item.farside_door.eject_direction,
+                                             msg="Doors do not have reciprocal DoorEjectDirections!")
 
             for room in actual_result.rooms:
                 print(hex(room.tekton_room.header))
@@ -56,6 +72,12 @@ class TestTRAreaCreator(unittest.TestCase):
                 self.assertEqual(len(room.attached_door_attach_points),
                                  len(room.tekton_room.doors),
                                  msg="Tekton room {} has incorrect number of doors!".format(hex(room.tekton_room.header)))
+                self.assertEqual(room.width,
+                                 room.tekton_room.width_screens,
+                                 msg="TRRoomPlaceholder and TektonRoom widths do not match!")
+                self.assertEqual(room.height,
+                                 room.tekton_room.height_screens,
+                                 msg="TRRoomPlaceholder and TektonRoom widths do not match!")
                 for i in range(len(room.attached_door_attach_points)):
                     self.assertEqual(room.attached_door_attach_points[i].farside_room.tekton_room.header,
                                      room.tekton_room.doors[i].target_room_id,

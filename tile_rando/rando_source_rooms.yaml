@@ -4,9 +4,3 @@
   name: "Pre-Map Flyway"
 - header: 0x79879
   name: "Flyway"
-- header: 0x7990d
-  name: "Terminator Room"
-- header: 0x79969
-  name: "Lower Mushrooms"
-- header: 0x79a44
-  name: "Final Missile Bombway"

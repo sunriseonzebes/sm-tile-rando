@@ -66,13 +66,14 @@ class TRMapGrid:
             else:
                 remaining_new_aps = [ap for ap in new_placeholder.available_door_attach_points if
                                      ap.eject_direction == DoorEjectDirection.UP]
+            print(remaining_new_aps)
             while len(remaining_new_aps) > 0:
                 new_ap = random.choice(remaining_new_aps)
-                if existing_ap.eject_direction == DoorEjectDirection.RIGHT:
+                if existing_ap.eject_direction == DoorEjectDirection.LEFT:
                     new_ap_coords = (existing_ap_coords[0] - 1, existing_ap_coords[1])
-                elif existing_ap.eject_direction == DoorEjectDirection.LEFT:
+                elif existing_ap.eject_direction == DoorEjectDirection.RIGHT:
                     new_ap_coords = (existing_ap_coords[0] + 1, existing_ap_coords[1])
-                elif existing_ap.eject_direction == DoorEjectDirection.UP:
+                elif existing_ap.eject_direction == DoorEjectDirection.DOWN:
                     new_ap_coords = (existing_ap_coords[0], existing_ap_coords[1] + 1)
                 else:
                     new_ap_coords = (existing_ap_coords[0], existing_ap_coords[1] - 1)

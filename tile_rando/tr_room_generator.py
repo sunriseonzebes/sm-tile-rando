@@ -43,7 +43,7 @@ class TRLandingSiteRoomGenerator(TRRoomGenerator):
         if self._height is None:
             self.generate_room_height()
         attach_points = [[[] for row in range(self._height)] for col in range(self._width)]
-        attach_points[0][4].append(TRDoorAttachPoint(0, 4, DoorEjectDirection.RIGHT))
+        attach_points[0][4].append(TRDoorAttachPoint(0, 4, DoorEjectDirection.LEFT))
 
         return attach_points
 
@@ -61,12 +61,14 @@ class TRSimpleBoxRoomGenerator(TRRoomGenerator):
         self._width = random.randint(1, 5)
         if self._height is not None and self._width > 2 and self._height > 2:
             self._width = random.randint(1, 5)  # Re-roll on large square rooms to make them less likely.
+        self._width = 3
         return self._width
 
     def generate_room_height(self):
         self._height = random.randint(1, 5)
         if self._width is not None and self._width > 2 and self._height > 2:
             self._height = random.randint(1, 5)  # Re-roll on large square rooms to make them less likely.
+        self._height = 1
         return self._height
 
     def generate_door_attach_points(self):
@@ -79,13 +81,13 @@ class TRSimpleBoxRoomGenerator(TRRoomGenerator):
             for row in range(self._height):
                 if row in [0, self._height - 1] or col in [0, self._width - 1]:
                     if row == 0:
-                        attach_points[col][row].append(TRDoorAttachPoint(col, row, DoorEjectDirection.DOWN))
-                    if row == self._height - 1:
                         attach_points[col][row].append(TRDoorAttachPoint(col, row, DoorEjectDirection.UP))
+                    if row == self._height - 1:
+                        attach_points[col][row].append(TRDoorAttachPoint(col, row, DoorEjectDirection.DOWN))
                     if col == 0:
-                        attach_points[col][row].append(TRDoorAttachPoint(col, row, DoorEjectDirection.RIGHT))
-                    if col == self._width - 1:
                         attach_points[col][row].append(TRDoorAttachPoint(col, row, DoorEjectDirection.LEFT))
+                    if col == self._width - 1:
+                        attach_points[col][row].append(TRDoorAttachPoint(col, row, DoorEjectDirection.RIGHT))
 
         return attach_points
 
@@ -124,24 +126,24 @@ class TRSimpleBoxRoomGenerator(TRRoomGenerator):
             new_door_grid = create_classic_door_tile_grid(attached_doors[i].eject_direction, i)
             new_door_x_coord = attached_doors[i].h_screen * 16
             new_door_y_coord = attached_doors[i].v_screen * 16
-            if attached_doors[i].eject_direction == DoorEjectDirection.LEFT:
+            if attached_doors[i].eject_direction == DoorEjectDirection.RIGHT:
                 new_door_x_coord += 14
                 new_door_y_coord += 6
                 for j in range(new_door_y_coord, new_door_y_coord + 4):
                     new_tiles[new_door_x_coord-1][j].tileno = 0x80
                     new_tiles[new_door_x_coord-1][j].bts_type = 0x00
-            if attached_doors[i].eject_direction == DoorEjectDirection.RIGHT:
+            if attached_doors[i].eject_direction == DoorEjectDirection.LEFT:
                 new_door_y_coord += 6
                 for j in range(new_door_y_coord, new_door_y_coord + 4):
                     new_tiles[new_door_x_coord+2][j].tileno = 0x80
                     new_tiles[new_door_x_coord+2][j].bts_type = 0x00
-            if attached_doors[i].eject_direction == DoorEjectDirection.UP:
+            if attached_doors[i].eject_direction == DoorEjectDirection.DOWN:
                 new_door_x_coord += 6
                 new_door_y_coord += 14
                 for j in range(new_door_x_coord, new_door_x_coord + 4):
                     new_tiles[j][new_door_y_coord-1].tileno = 0x80
                     new_tiles[j][new_door_y_coord-1].bts_type = 0x00
-            if attached_doors[i].eject_direction == DoorEjectDirection.DOWN:
+            if attached_doors[i].eject_direction == DoorEjectDirection.UP:
                 new_door_x_coord += 6
                 for j in range(new_door_x_coord, new_door_x_coord + 4):
                     new_tiles[j][new_door_y_coord+2].tileno = 0x80
