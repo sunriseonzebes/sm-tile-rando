@@ -1,4 +1,5 @@
 from .tr_door_attach_point import TRDoorAttachPoint
+from .tr_door_generator import create_tekton_door
 
 class TRRoomPlaceholder:
     def __init__(self, width=1, height=1):
@@ -48,3 +49,17 @@ class TRRoomPlaceholder:
         if new_tiles is not None:
             self.tekton_room.tiles = new_tiles
             print(new_tiles)
+
+    def generate_tekton_doors(self):
+        attached_doors = self.attached_door_attach_points
+        new_tekton_door_list = []
+
+        for i in range(len(attached_doors)):
+            new_tekton_door = create_tekton_door(attached_doors[i])
+            if len(self.tekton_room.doors) > i:
+                new_tekton_door.data_address = self.tekton_room.doors[i].data_address
+            else:
+                new_tekton_door.data_address = new_tekton_door_list[i-1].data_address + 12
+            new_tekton_door_list.append(new_tekton_door)
+
+        self.tekton_room.doors = new_tekton_door_list

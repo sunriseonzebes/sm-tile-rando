@@ -35,6 +35,7 @@ class TRAreaCreator:
                 print("Could not find anywhere to put placeholder!")
 
         return_grid.generate_rooms_tiles()
+        return_grid.generate_tekton_doors()
 
         print(return_grid)
         return return_grid
@@ -58,13 +59,11 @@ class TRAreaCreator:
     def _create_room_placeholder(self, used_rooms):
         placeholder = TRRoomPlaceholder()
         placeholder.room_generator = TRSimpleBoxRoomGenerator()
-        available_source_rooms = []
-        for source_room in self.source_rooms.values():
-            if not any([source_room.header == used_room.tekton_room.header for used_room in used_rooms]):
-                available_source_rooms.append(source_room)
-        if len(available_source_rooms) < 1:
+        used_headers = [room.tekton_room.header for room in used_rooms]
+        available_source_room_headers = [header for header in self.source_rooms.keys() if header not in used_headers]
+        if len(available_source_room_headers) < 1:
             raise ValueError("No source rooms left to randomize!")
-        placeholder.tekton_room = random.choice([tekton_room for header, tekton_room in self.source_rooms.items() if tekton_room not in used_rooms])
+        placeholder.tekton_room = self.source_rooms[random.choice(available_source_room_headers)]
 
         placeholder.generate_room_attributes()
 

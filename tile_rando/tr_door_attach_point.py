@@ -13,7 +13,10 @@ class TRDoorAttachPoint:
         return self.__str__()
 
     def __str__(self):
-        return "TRDoorAttachPoint ({h}, {v})".format(h=self.h_screen, v=self.v_screen)
+        return_string = "TRDoorAttachPoint ({h}, {v})".format(h=self.h_screen, v=self.v_screen)
+        if self.is_attached:
+            return_string += "\nFarside Room: {header}".format(header=hex(self.farside_room.tekton_room.header))
+        return return_string
 
     @property
     def is_attached(self):

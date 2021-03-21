@@ -4,3 +4,5 @@ source_rooms:
     write_level_data: !!bool 'false'
     width: 9
     height: 5
+    doors:
+      - 0x18916

@@ -118,6 +118,10 @@ class TRMapGrid:
         for room in self.rooms:
             room.generate_room_tiles()
 
+    def generate_tekton_doors(self):
+        for room in self.rooms:
+            room.generate_tekton_doors()
+
 
 class RoomExceedsGridBoundariesError(Exception):
     """Exception raised when adding a room that goes past the boundaries of the TRMapGrid."""

@@ -60,7 +60,6 @@ class TestTRSimpleBoxRoomGenerator(unittest.TestCase):
                            [tr_door_attach_point.TRDoorAttachPoint(1, 1, DoorEjectDirection.UP),
                            tr_door_attach_point.TRDoorAttachPoint(1, 1, DoorEjectDirection.LEFT)]]]
         actual_result = test_gen.generate_door_attach_points()
-        print(actual_result)
         for row in range(len(expected_result)):
             for col in range(len(expected_result[row])):
                 for i in range(len(expected_result[col][row])):

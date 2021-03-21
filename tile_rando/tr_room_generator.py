@@ -120,7 +120,6 @@ class TRSimpleBoxRoomGenerator(TRRoomGenerator):
             for y in range(new_tiles.height - 3, new_tiles.height):
                 new_tiles[x][y] = block_tile.copy()
 
-        print(attached_doors)
         for i in range(len(attached_doors)):
             new_door_grid = create_classic_door_tile_grid(attached_doors[i].eject_direction, i)
             new_door_x_coord = attached_doors[i].h_screen * 16
