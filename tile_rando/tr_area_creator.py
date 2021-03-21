@@ -70,11 +70,6 @@ class TRAreaCreator:
         return placeholder
 
 
-
-
-
-
-
 class RequiredRoomMissingError(Exception):
     """Raised when a required room is not present in the TektonRoomDictionary object."""
     pass

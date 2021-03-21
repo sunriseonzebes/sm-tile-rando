@@ -46,23 +46,6 @@ class TestTRProject(unittest.TestCase):
                          test_project.config.seed,
                          "parse_args did not load config.seed correctly!")
 
-    def test_randomize(self):
-        test_project = tr_project.TRProject()
-        test_project.original_rom_path = original_rom_path
-        original_rom_md5 = b'\x21\xf3\xe9\x8d\xf4\x78\x0e\xe1\xc6\x67\xb8\x4e\x57\xd8\x86\x75'
-
-        test_rom_path = os.path.join('fixtures', 'test_output_rom.sfc')
-        test_project.modified_rom_path = test_rom_path
-
-        test_project.randomize()
-
-        with open(test_rom_path, 'rb') as f:
-            actual_result = f.read()
-
-        self.assertEqual(original_rom_md5,
-                         hashlib.md5(actual_result).digest(),
-                         "Output ROM does not have correct hash!")
-
     def test_write_bytes_to_output_file(self):
         test_project = tr_project.TRProject()
         expected_result = b'\x00\x11\x22\x33'
