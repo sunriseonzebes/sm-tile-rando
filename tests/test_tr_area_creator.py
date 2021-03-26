@@ -106,7 +106,7 @@ class TestTRAreaCreator(unittest.TestCase):
             new_room = tekton_room.TektonRoom(source_room['width'], source_room['height'])
             new_room.header = source_room['header']
             new_room.write_level_data = source_room['write_level_data']
-            new_room.tiles = tekton_tile_grid.TektonTileGrid(source_room['width'] * 16, source_room['height'] * 16)
+            new_room.standard_state.tiles = tekton_tile_grid.TektonTileGrid(source_room['width'] * 16, source_room['height'] * 16)
             test_dict.add_room(new_room)
             for source_door in source_room["doors"]:
                 new_door = tekton_door.TektonDoor()
