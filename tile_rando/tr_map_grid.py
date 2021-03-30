@@ -21,7 +21,10 @@ class TRMapGrid:
                         if self.rooms[i] == self._squares[col][row]:
                             return_string += '{} '.format(i)
             return_string += "\n"
-        return_string += "\n"
+        return_string += "\n\n"
+
+        for i in range(len(self.rooms)):
+            return_string += "{index}: {header}\n".format(index=i, header=hex(self.rooms[i].tekton_room.header))
 
         return return_string
 

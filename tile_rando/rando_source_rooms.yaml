@@ -1,6 +1,14 @@
 - header: 0x791f8
   name: "Landing Site"
-- header: 0x798e2
-  name: "Pre-Map Flyway"
 - header: 0x79879
   name: "Flyway"
+- header: 0x7990d
+  name: "Terminator Room"
+- header: 0x7948c
+  name: "Crateria Kihunter Room"
+- header: 0x796ba
+  name: "Climb"
+- header: 0x799bd
+  name: "Green Pirates Shaft"
+- header: 0x799f9
+  name: "Crateria Super Room"

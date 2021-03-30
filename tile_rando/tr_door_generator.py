@@ -7,8 +7,8 @@ horizontal_door_collar_outer_tileno = 0x040
 horizontal_door_collar_inner_tileno = 0x060
 horizontal_door_shield_outer_tileno = 0x00c
 horizontal_door_shield_inner_tileno = 0x02c
-vertical_door_collar_outer_tileno = 0x042
-vertical_door_collar_inner_tileno = 0x062
+vertical_door_collar_outer_tileno = 0x043
+vertical_door_collar_inner_tileno = 0x042
 vertical_door_shield_outer_tileno = 0x01d
 vertical_door_shield_inner_tileno = 0x01c
 

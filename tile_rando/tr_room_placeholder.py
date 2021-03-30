@@ -46,6 +46,16 @@ class TRRoomPlaceholder:
             for row in range(len(door_attach_points[col])):
                 self.screens[col][row] += door_attach_points[col][row]
 
+        self.tekton_room.standard_state.tileset = self.room_generator.generate_room_tileset()
+        self.tekton_room.standard_state.background_pointer = self.room_generator.generate_room_background_pointer()
+        self.tekton_room.standard_state.room_scrolls_pointer = self.room_generator.generate_room_scrolls_pointer()
+        self.tekton_room.standard_state.enemy_set_pointer = self.room_generator.generate_enemy_set_pointer()
+        self.tekton_room.standard_state.fx_pointer = self.room_generator.generate_room_fx_pointer()
+        self.tekton_room.standard_state.plm_set_pointer = self.room_generator.generate_plm_set_pointer()
+        if self.room_generator.delete_room_extra_states:
+            self.tekton_room.extra_states = []
+
+
     def generate_room_tiles(self):
         new_tiles = self.room_generator.generate_room_tiles(self.attached_door_attach_points)
         if new_tiles is not None:

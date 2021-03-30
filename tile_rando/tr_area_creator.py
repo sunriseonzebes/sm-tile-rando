@@ -20,7 +20,7 @@ class TRAreaCreator:
                                          landing_site_coords[0],
                                          landing_site_coords[1])
 
-        while len(return_grid.rooms) <= 5 and len(return_grid.rooms) < len(self.source_rooms.values()):
+        while len(return_grid.rooms) < len(self.source_rooms.values()):
             new_placeholder = self._create_room_placeholder(return_grid.rooms)
             remaining_existing_placeholders = return_grid.rooms.copy()
             while len(remaining_existing_placeholders) > 0:

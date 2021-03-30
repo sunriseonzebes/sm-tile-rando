@@ -3,6 +3,7 @@ import random
 from tekton.tekton_door import DoorEjectDirection
 from tekton.tekton_tile import TektonTile
 from tekton.tekton_tile_grid import TektonTileGrid
+from tekton.tekton_room_state import TileSet
 from .tr_door_attach_point import TRDoorAttachPoint
 from .tr_door_generator import create_classic_door_tile_grid
 
@@ -20,6 +21,27 @@ class TRRoomGenerator:
         pass
 
     def generate_room_tiles(self, attached_doors):
+        pass
+
+    def generate_room_tileset(self):
+        pass
+
+    def generate_room_background_pointer(self):
+        pass
+
+    def generate_room_scrolls_pointer(self):
+        pass
+
+    def generate_enemy_set_pointer(self):
+        pass
+
+    def generate_plm_set_pointer(self):
+        pass
+
+    def generate_room_fx_pointer(self):
+        pass
+
+    def delete_room_extra_states(self):
         pass
 
 
@@ -50,6 +72,27 @@ class TRLandingSiteRoomGenerator(TRRoomGenerator):
     def generate_room_tiles(self, attached_doors):
         return None
 
+    def generate_room_tileset(self):
+        return TileSet.CRATERIA_CAVE
+
+    def generate_room_background_pointer(self):
+        return 0xb76a
+
+    def generate_room_scrolls_pointer(self):
+        return 0x9283
+
+    def generate_enemy_set_pointer(self):
+        return 0x883d
+
+    def generate_plm_set_pointer(self):
+        return 0x8000
+
+    def generate_room_fx_pointer(self):
+        return 0x80c0
+
+    def delete_room_extra_states(self):
+        return False
+
 
 class TRSimpleBoxRoomGenerator(TRRoomGenerator):
     def __init__(self):
@@ -61,14 +104,12 @@ class TRSimpleBoxRoomGenerator(TRRoomGenerator):
         self._width = random.randint(1, 5)
         if self._height is not None and self._width > 2 and self._height > 2:
             self._width = random.randint(1, 5)  # Re-roll on large square rooms to make them less likely.
-        self._width = 3
         return self._width
 
     def generate_room_height(self):
         self._height = random.randint(1, 5)
         if self._width is not None and self._width > 2 and self._height > 2:
             self._height = random.randint(1, 5)  # Re-roll on large square rooms to make them less likely.
-        self._height = 1
         return self._height
 
     def generate_door_attach_points(self):
@@ -158,3 +199,24 @@ class TRSimpleBoxRoomGenerator(TRRoomGenerator):
             new_tiles.overwrite_with(new_door_grid, new_door_x_coord, new_door_y_coord)
 
         return new_tiles
+
+    def generate_room_tileset(self):
+        return random.choice([TileSet.CRATERIA_TECH, TileSet.CRATERIA_TECH_DARK])
+
+    def generate_room_background_pointer(self):
+        return random.choice([0xb93b, 0xb8ea, 0xb920, 0xb8cf])
+
+    def generate_room_scrolls_pointer(self):
+        return 0x1111
+
+    def generate_enemy_set_pointer(self):
+        return 0x9f5e  # Statue Hallway, 0x7a5ed
+
+    def generate_plm_set_pointer(self):
+        return 0x8246  # Crateria Tube, 0x795d4
+
+    def generate_room_fx_pointer(self):
+        return 0x83f2
+
+    def delete_room_extra_states(self):
+        return True
