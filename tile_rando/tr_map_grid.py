@@ -24,7 +24,9 @@ class TRMapGrid:
         return_string += "\n\n"
 
         for i in range(len(self.rooms)):
-            return_string += "{index}: {header}\n".format(index=i, header=hex(self.rooms[i].tekton_room.header))
+            return_string += "{index}: {header} ({size} bytes)\n".format(index=i,
+                                                                         header=hex(self.rooms[i].tekton_room.header),
+                                                                         size=len(self.rooms[i].tekton_room.compressed_level_data(self.rooms[i].tekton_room.standard_state)))
 
         return return_string
 

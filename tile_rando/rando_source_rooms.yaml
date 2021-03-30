@@ -1,7 +1,7 @@
 - header: 0x791f8
   name: "Landing Site"
-- header: 0x79879
-  name: "Flyway"
+- header: 0x7a521
+  name: "Baby Kraid Room"
 - header: 0x7990d
   name: "Terminator Room"
 - header: 0x7948c
@@ -12,3 +12,5 @@
   name: "Green Pirates Shaft"
 - header: 0x799f9
   name: "Crateria Super Room"
+- header: 0x7a5ed
+  name: "Statues Hallway"

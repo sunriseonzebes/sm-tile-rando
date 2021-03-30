@@ -20,7 +20,7 @@ class TRRoomGenerator:
     def generate_door_attach_points(self):
         pass
 
-    def generate_room_tiles(self, attached_doors):
+    def generate_room_tiles(self):
         pass
 
     def generate_room_tileset(self):
@@ -29,7 +29,7 @@ class TRRoomGenerator:
     def generate_room_background_pointer(self):
         pass
 
-    def generate_room_scrolls_pointer(self):
+    def generate_room_scrolls_pointer(self, attached_doors):
         pass
 
     def generate_enemy_set_pointer(self):
@@ -167,7 +167,10 @@ class TRSimpleBoxRoomGenerator(TRRoomGenerator):
                 new_tiles[x][y] = block_tile.copy()
 
         for i in range(len(attached_doors)):
-            new_door_grid = create_classic_door_tile_grid(attached_doors[i].eject_direction, i)
+            door_depth = 2
+            if attached_doors[i].eject_direction == DoorEjectDirection.UP or attached_doors[i].eject_direction == DoorEjectDirection.DOWN:
+                door_depth = 3
+            new_door_grid = create_classic_door_tile_grid(attached_doors[i].eject_direction, door_depth, i)
             new_door_x_coord = attached_doors[i].h_screen * 16
             new_door_y_coord = attached_doors[i].v_screen * 16
             if attached_doors[i].eject_direction == DoorEjectDirection.RIGHT:
@@ -183,7 +186,7 @@ class TRSimpleBoxRoomGenerator(TRRoomGenerator):
                     new_tiles[new_door_x_coord+2][j].bts_type = 0x00
             if attached_doors[i].eject_direction == DoorEjectDirection.DOWN:
                 new_door_x_coord += 6
-                new_door_y_coord += 14
+                new_door_y_coord += 13
                 for j in range(new_door_x_coord, new_door_x_coord + 4):
                     new_tiles[j][new_door_y_coord-1].tileno = transparent_air_tileno
                     new_tiles[j][new_door_y_coord-1].bts_type = 0x00
@@ -192,7 +195,7 @@ class TRSimpleBoxRoomGenerator(TRRoomGenerator):
                 for j in range(new_door_x_coord, new_door_x_coord + 4):
                     new_tiles[j][new_door_y_coord+2].tileno = transparent_air_tileno
                     new_tiles[j][new_door_y_coord+2].bts_type = 0x00
-                for j in range(new_door_y_coord+8, new_tiles.height, 8):
+                for j in range(new_door_y_coord+8, new_tiles.height, 7):
                     for k in range(new_door_x_coord, new_door_x_coord + 4):
                         new_tiles[k][j].tileno = metal_block_tileno
                         new_tiles[k][j].bts_type = 0x08

@@ -8,7 +8,7 @@ from tekton import tekton_door, tekton_tile_grid, tekton_room
 
 class TestTRDoorGenerator(unittest.TestCase):
     def test_create_classic_door_tile_grid(self):
-        actual_result = tr_door_generator.create_classic_door_tile_grid(tekton_door.DoorEjectDirection.RIGHT, 0)
+        actual_result = tr_door_generator.create_classic_door_tile_grid(tekton_door.DoorEjectDirection.RIGHT, 2, 0)
         self.assertTrue(isinstance(actual_result, tekton_tile_grid.TektonTileGrid))
         self.assertEqual(2, actual_result.width, "Generated TileGrid has wrong width!")
         self.assertEqual(4, actual_result.height, "Generated TileGrid has wrong height!")
@@ -19,7 +19,7 @@ class TestTRDoorGenerator(unittest.TestCase):
             self.assertEqual(9, actual_result[1][y].bts_type, msg="Door collar has wrong BTS Type!")
             self.assertEqual(0, actual_result[1][y].bts_num, msg="Door tiles have incorrect door id!")
 
-        actual_result = tr_door_generator.create_classic_door_tile_grid(tekton_door.DoorEjectDirection.LEFT, 3, False)
+        actual_result = tr_door_generator.create_classic_door_tile_grid(tekton_door.DoorEjectDirection.LEFT, 2, 3, False)
         self.assertTrue(isinstance(actual_result, tekton_tile_grid.TektonTileGrid))
         self.assertEqual(2, actual_result.width, "Generated TileGrid has wrong width!")
         self.assertEqual(4, actual_result.height, "Generated TileGrid has wrong height!")
@@ -30,16 +30,28 @@ class TestTRDoorGenerator(unittest.TestCase):
             self.assertEqual(9, actual_result[0][y].bts_type, msg="Door collar has wrong BTS Type!")
             self.assertEqual(3, actual_result[0][y].bts_num, msg="Door tiles have incorrect door id!")
 
-        actual_result = tr_door_generator.create_classic_door_tile_grid(tekton_door.DoorEjectDirection.UP, 2)
+        actual_result = tr_door_generator.create_classic_door_tile_grid(tekton_door.DoorEjectDirection.UP, 2, 2)
         self.assertTrue(isinstance(actual_result, tekton_tile_grid.TektonTileGrid))
         self.assertEqual(4, actual_result.width, "Generated TileGrid has wrong width!")
         self.assertEqual(2, actual_result.height, "Generated TileGrid has wrong height!")
         for x in range(actual_result.width):
             for y in range(actual_result.height):
                 self.assertIsNotNone(actual_result[x][y], msg="Tile Grid contains None!")
-        for x in range(actual_result.height):
+        for x in range(actual_result.width):
             self.assertEqual(9, actual_result[x][0].bts_type, msg="Door collar has wrong BTS Type!")
             self.assertEqual(2, actual_result[x][0].bts_num, msg="Door tiles have incorrect door id!")
+
+        actual_result = tr_door_generator.create_classic_door_tile_grid(tekton_door.DoorEjectDirection.DOWN, 4, 5, False)
+        self.assertTrue(isinstance(actual_result, tekton_tile_grid.TektonTileGrid))
+        self.assertEqual(4, actual_result.width, "Generated TileGrid has wrong width!")
+        self.assertEqual(4, actual_result.height, "Generated TileGrid has wrong height!")
+        for x in range(actual_result.width):
+            self.assertIsNone(actual_result[x][0], msg="Door should not have tiles in shield but it does!")
+            for x in range(1, actual_result.height):
+                self.assertIsNotNone(actual_result[x][y], msg="Door Collar or Tube contains None!")
+        for x in range(actual_result.width):
+            self.assertEqual(9, actual_result[x][actual_result.height-1].bts_type, msg="Door tube has wrong BTS Type!")
+            self.assertEqual(5, actual_result[x][actual_result.height-1].bts_num, msg="Door tiles have incorrect door id!")
 
     def test_create_tekton_door(self):
         test_door_ap = tr_door_attach_point.TRDoorAttachPoint(0, 0, tekton_door.DoorEjectDirection.UP)
