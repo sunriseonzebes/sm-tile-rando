@@ -55,11 +55,10 @@ class TRRoomPlaceholder:
         if self.room_generator.delete_room_extra_states:
             self.tekton_room.extra_states = []
 
-
     def generate_room_tiles(self):
-        new_tiles = self.room_generator.generate_room_tiles(self.attached_door_attach_points)
-        if new_tiles is not None:
-            self.tekton_room.standard_state.tiles = new_tiles
+        if not self.tekton_room.write_level_data:
+            return
+        self.tekton_room.standard_state.tiles = self.room_generator.generate_room_tiles(self.attached_door_attach_points)
 
     def generate_tekton_doors(self):
         attached_doors = self.attached_door_attach_points
