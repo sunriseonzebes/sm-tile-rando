@@ -9,6 +9,9 @@ At the moment, this is an extremely early WIP and has very limited functionality
 ## That's it? That's all it does?
 For now, yes. I'm working on it. ROM hacking is hard :)
 
+## Dependencies
+SM-Tile-Rando requires [Tekton](https://github.com/sunriseonzebes/tekton). 
+
 ## Usage
 
     python -m tile_rando -i <path_to_original_rom> -o <output_rom_path>
