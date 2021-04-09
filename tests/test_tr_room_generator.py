@@ -116,7 +116,32 @@ class TestTRSimpleBoxRoomGenerator(unittest.TestCase):
         actual_results = test_gen.generate_room_tiles(test_attached_doors)
         self.assertTrue(isinstance(actual_results, TektonTileGrid),
                         msg="generate_room_tiles did not return the correct object!")
-        for row in range(len(actual_results)):
-            for col in range(len(actual_results[row])):
+        for col in range(len(actual_results)):
+            for row in range(len(actual_results[col])):
                 self.assertIsNotNone(actual_results[col][row],
                                      msg="generate_room_tiles returned None at grid position {}, {}!".format(col, row))
+
+
+class TestTRBlueCanyonRoomGenerator(unittest.TestCase):
+    def test_init(self):
+        test_gen = tr_room_generator.TRBlueCanyonRoomGenerator()
+        self.assertTrue(isinstance(test_gen, tr_room_generator.TRBlueCanyonRoomGenerator),
+                        msg="TRBlueCanyonRoomGenerator did not initialize correctly!")
+        self.assertIsNone(test_gen._width, "TRBlueCanyonRoomGenerator did not initialize correctly!")
+        self.assertIsNone(test_gen._height, "TRBlueCanyonRoomGenerator did not initialize correctly!")
+
+    def test_generate_room_tiles(self):
+        test_gen = tr_room_generator.TRBlueCanyonRoomGenerator()
+        test_gen._height = 3
+        test_gen._width = 1
+        test_attached_doors = []
+
+        actual_results = test_gen.generate_room_tiles(test_attached_doors)
+        print(actual_results)
+        self.assertTrue(isinstance(actual_results, TektonTileGrid),
+                        msg="generate_room_tiles did not return the correct object!")
+        for col in range(len(actual_results)):
+            for row in range(len(actual_results[col])):
+                self.assertIsNotNone(actual_results[col][row],
+                                     msg="generate_room_tiles returned None at grid position {}, {}!".format(col, row))
+        print(actual_results)
